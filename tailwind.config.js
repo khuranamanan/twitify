@@ -17,10 +17,11 @@ module.exports = {
       green: "#388e3c",
       offWhite: "#f9f9f9",
       darkerGray: "#2a2a2a",
+      transparentWhite: "hsla(0,0%,100%,0.1)",
     },
     fontFamily: {
-      alata: ["Alata", "sans-serif"],
-      robotoSlab: ["Roboto Slab", "serif"],
+      inter: ["Inter", "sans-serif"],
+      openSans: ["Open Sans", "sans-serif"],
     },
     extend: {},
   },
