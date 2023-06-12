@@ -10,13 +10,21 @@ import BookmarksPage from "../pages/bookmarks/BookmarksPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import MockmanPage from "../pages/MockmanPage";
 import LoginPage from "../pages/auth/LoginPage";
+import PrivateRoute from "../components/PrivateRoute";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/mockman" element={<MockmanPage />} />
-      <Route path="/" element={<RootLayout />}>
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <RootLayout />
+          </PrivateRoute>
+        }
+      >
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
         <Route path="bookmarks" element={<BookmarksPage />} />
