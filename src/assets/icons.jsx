@@ -216,7 +216,7 @@ export function TwitifyFullLogo() {
       <g transform="scale(8.113162087066575) translate(10, 10)">
         <defs id="SvgjsDefs2857"></defs>
         <g
-          featureKey="hmhgWD-0"
+          featurekey="hmhgWD-0"
           transform="matrix(1.159886149210969,0,0,1.159886149210969,-11.159267190136699,13.903994656384363)"
           fill="#3fc1c9"
         >
@@ -244,7 +244,7 @@ export function TwitifyFullLogo() {
           ></polyline>
         </g>
         <g
-          featureKey="1RRcwp-0"
+          featurekey="1RRcwp-0"
           transform="matrix(4.152159009178206,0,0,4.152159009178206,110.75783429343606,7.910517318214016)"
           fill="#f5f5f5"
         >

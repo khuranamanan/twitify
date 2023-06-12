@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { EyeFill, EyesInvisible, TwitifyFullLogo } from "../../assets/icons";
 import { useLocation, useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { handleLogIn } from "../../redux/slices/authSlice";
 
 function LoginPage() {
   const [logInFormData, setLogInFormData] = useState({
@@ -11,6 +14,8 @@ function LoginPage() {
   const location = useLocation();
   const [formInputError, setFormInputError] = useState();
   const [showPassword, setShowPassword] = useState();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   function handleLogInFormSubmit(event) {
     event.preventDefault();
@@ -20,12 +25,13 @@ function LoginPage() {
       );
       return;
     }
-    //  logInUser(logInFormData.email.trim(), logInFormData.password.trim());
+    dispatch(
+      handleLogIn({
+        username: logInFormData?.username?.trim(),
+        password: logInFormData?.password?.trim(),
+      })
+    );
   }
-
-  //    const loginErrorHandler = loginData.isError && (
-  //      <p className="login-error"> {loginData.isError} </p>
-  //    );
 
   const formInputErrorDisplay = formInputError && (
     <p className="text-red text-xs text-center"> {formInputError} </p>
@@ -41,11 +47,11 @@ function LoginPage() {
 
   const showPasswordIcon = showPassword ? <EyesInvisible /> : <EyeFill />;
 
-  //   useEffect(() => {
-  //     if (loginData.isLoggedIn) {
-  //       navigate(location?.state?.from || "/", { replace: true });
-  //     }
-  //   }, [loginData.isLoggedIn, navigate, location]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(location?.state?.from || "/", { replace: true });
+    }
+  }, [isLoggedIn, navigate, location]);
 
   return (
     <div className="h-full w-full flex justify-center items-center p-3 bg-gradient-to-br from-cyan to-snow">
@@ -115,7 +121,7 @@ function LoginPage() {
             </button>
           </div>
         </form>
-        {/* {loginErrorHandler} */}
+
         <span className=" h-3">{formInputErrorDisplay}</span>
         <div className="text-md text-center">
           New user?{" "}
