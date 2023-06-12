@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { EyeFill, EyesInvisible, TwitifyLogoIcon } from "../../assets/icons";
+import { EyeFill, EyesInvisible, TwitifyFullLogo } from "../../assets/icons";
 import { useLocation, useNavigate } from "react-router";
 
 function LoginPage() {
@@ -49,9 +49,9 @@ function LoginPage() {
 
   return (
     <div className="h-full w-full flex justify-center items-center p-3 bg-gradient-to-br from-cyan to-snow">
-      <div className="bg-black flex flex-col gap-8 p-10 rounded-xl h-[80%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
+      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[80%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
         <div className="px-3 flex justify-center">
-          <TwitifyLogoIcon />
+          <TwitifyFullLogo />
         </div>
         <form
           className="w-full flex flex-col justify-around gap-4 items-center grow"
@@ -63,7 +63,7 @@ function LoginPage() {
           <div className="flex flex-col gap-4 w-full mb-1">
             <input
               className="w-full rounded-md p-2 text-black"
-              type="username"
+              type="text"
               placeholder="Username"
               value={logInFormData.username}
               onChange={(e) =>
@@ -96,13 +96,13 @@ function LoginPage() {
           </div>
           <div className="flex flex-col gap-4 w-full">
             <button
-              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold"
+              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold hover:bg-white"
               type="submit"
             >
               Log In
             </button>
             <button
-              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold"
+              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold hover:bg-white"
               type="submit"
               onClick={() =>
                 setLogInFormData({
