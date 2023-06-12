@@ -13,7 +13,7 @@ function SideNavBar() {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
   }
   return (
-    <div className="relative bg-black font-inter font-medium flex px-2 py-2 gap-12 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start">
+    <div className="relative bg-black font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full">
       <div className="hidden px-3 sm:block">
         <TwitifyLogoIcon />
       </div>
@@ -37,7 +37,7 @@ function SideNavBar() {
         </NavLink>
       </nav>
 
-      <button className="flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan sm:w-full sm:static hover:brightness-105">
+      <button className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105">
         <TwitIcon />
         <span className="hidden lg:inline-block">Twit</span>
       </button>
