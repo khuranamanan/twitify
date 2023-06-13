@@ -55,7 +55,7 @@ function LoginPage() {
 
   return (
     <div className="h-full w-full flex justify-center items-center p-3 bg-gradient-to-br from-cyan to-snow">
-      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[80%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
+      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
         <div className="px-3 flex justify-center">
           <TwitifyFullLogo />
         </div>
@@ -81,7 +81,7 @@ function LoginPage() {
             />
             <div className="flex shrink justify-between gap-2 items-center w-full">
               <input
-                className="grow rounded-md shrink p-2 text-black"
+                className="rounded-md w-full p-2 text-black"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 onChange={(e) =>
