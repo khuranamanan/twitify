@@ -11,11 +11,13 @@ import ProfilePage from "../pages/profile/ProfilePage";
 import MockmanPage from "../pages/MockmanPage";
 import LoginPage from "../pages/auth/LoginPage";
 import PrivateRoute from "../components/PrivateRoute";
+import SignUpPage from "../pages/auth/SignUpPage";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
       <Route path="/mockman" element={<MockmanPage />} />
       <Route
         path="/"

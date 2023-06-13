@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { logInService } from "../../services/auth/authServices";
+import { logInService, signUpService } from "../../services/auth/authServices";
 
 const tokenFromLocalStorage = JSON.parse(
   localStorage.getItem("loginData")
@@ -23,6 +23,24 @@ export const handleLogIn = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log("error from handleLogIn", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const handleSignUp = createAsyncThunk(
+  "auth/handleSignUp",
+  async function ({ username, password, firstName, lastName }, thunkAPI) {
+    try {
+      const response = await signUpService(
+        username,
+        password,
+        firstName,
+        lastName
+      );
+      return response.data;
+    } catch (err) {
+      console.log("error from handleSignUp", err);
       return thunkAPI.rejectWithValue(err.response.data.errors[0]);
     }
   }
@@ -58,6 +76,27 @@ export const authSlice = createSlice({
     },
     [handleLogIn.rejected]: (state, action) => {
       console.log("thunkAPI handleLogIn error", action.payload);
+      state.isLoading = false;
+    },
+
+    [handleSignUp.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [handleSignUp.fulfilled]: (state, action) => {
+      state.token = action.payload.encodedToken;
+      state.user = action.payload.createdUser;
+      state.isLoggedIn = true;
+      state.isLoading = false;
+      localStorage.setItem(
+        "loginData",
+        JSON.stringify({
+          token: action.payload.encodedToken,
+          user: action.payload.createdUser,
+        })
+      );
+    },
+    [handleSignUp.rejected]: (state, action) => {
+      console.log("thunkAPI handleSignUp error", action.payload);
       state.isLoading = false;
     },
   },
