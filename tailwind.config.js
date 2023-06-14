@@ -18,6 +18,7 @@ module.exports = {
       offWhite: "#f9f9f9",
       darkerGray: "#2a2a2a",
       transparentWhite: "hsla(0,0%,100%,0.1)",
+      transparentWhite2: "hsla(0,0%,100%,0.2)",
     },
     fontFamily: {
       inter: ["Inter", "sans-serif"],

@@ -28,7 +28,6 @@ export const allUsersSlice = createSlice({
       state.isLoading = true;
     },
     [getAllUsers.fulfilled]: (state, action) => {
-      console.log("users", action.payload);
       state.allUsers = action.payload.users;
       state.isLoading = false;
     },
