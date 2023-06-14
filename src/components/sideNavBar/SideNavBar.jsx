@@ -3,15 +3,21 @@ import {
   BookmarksIcon,
   ExploreIcon,
   HomeIcon,
+  LogOutIcon,
   ProfileIcon,
   TwitIcon,
   TwitifyLogoIcon,
 } from "../../assets/icons";
+import { useDispatch } from "react-redux";
+import { handleLogOut } from "../../redux/slices/authSlice";
 
 function SideNavBar() {
+  const dispatch = useDispatch();
+
   function handleNavLinkStyle({ isActive }) {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
   }
+
   return (
     <div className="relative bg-black font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full">
       <div className="hidden px-3 sm:block">
@@ -35,6 +41,10 @@ function SideNavBar() {
           <ProfileIcon />
           <span className="hidden lg:block items-center">Profile</span>
         </NavLink>
+        <button className="navlink" onClick={() => dispatch(handleLogOut())}>
+          <LogOutIcon />
+          <span className="hidden lg:block items-center">Log Out</span>
+        </button>
       </nav>
 
       <button className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105">
