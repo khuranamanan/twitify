@@ -30,7 +30,7 @@ const routes = createBrowserRouter(
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
         <Route path="bookmarks" element={<BookmarksPage />} />
-        <Route path="profile" element={<ProfilePage />} />
+        <Route path="profile/:username" element={<ProfilePage />} />
       </Route>
     </>
   )

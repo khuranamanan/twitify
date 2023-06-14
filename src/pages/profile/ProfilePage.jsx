@@ -1,5 +1,9 @@
+import { useParams } from "react-router";
+
 function ProfilePage() {
-  return <div>ProfilePage</div>;
+  const { username } = useParams();
+
+  return <div>ProfilePage - {username}</div>;
 }
 
 export default ProfilePage;

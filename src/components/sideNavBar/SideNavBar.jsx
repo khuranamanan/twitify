@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   BookmarksIcon,
   ExploreIcon,
@@ -8,11 +8,14 @@ import {
   TwitIcon,
   TwitifyLogoIcon,
 } from "../../assets/icons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { handleLogOut } from "../../redux/slices/authSlice";
+import defaultProfileImg from "../../assets/defaultProfileImg.png";
 
 function SideNavBar() {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleNavLinkStyle({ isActive }) {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
@@ -37,7 +40,10 @@ function SideNavBar() {
           <BookmarksIcon />
           <span className="hidden lg:block items-center">Bookmarks</span>
         </NavLink>
-        <NavLink to="profile" className={handleNavLinkStyle}>
+        <NavLink
+          to={`/profile/${user.username}`}
+          className={handleNavLinkStyle}
+        >
           <ProfileIcon />
           <span className="hidden lg:block items-center">Profile</span>
         </NavLink>
@@ -51,6 +57,23 @@ function SideNavBar() {
         <TwitIcon />
         <span className="hidden lg:inline-block">Twit</span>
       </button>
+
+      <div
+        className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer"
+        onClick={() => navigate(`/profile/${user.username}`)}
+      >
+        <div className="bg-snow w-10 h-10 aspect-square rounded-full border border-solid border-white">
+          <img
+            src={user.profileImg || defaultProfileImg}
+            alt={user.firstName}
+          />
+        </div>
+
+        <div>
+          <p>{`${user.firstName} ${user.lastName}`}</p>
+          <p className="text-xs text-darkGray">{`@${user.username}`}</p>
+        </div>
+      </div>
     </div>
   );
 }
