@@ -65,8 +65,6 @@ function SideNavBar() {
         <ProfileImage
           userImage={user.profileImg}
           userFirstName={user.firstName}
-          height={10}
-          width={10}
         />
 
         <div>

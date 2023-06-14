@@ -19,8 +19,6 @@ function FollowSuggestionCard({ twitifyUser }) {
       <ProfileImage
         userImage={twitifyUser.profileImg}
         userFirstName={twitifyUser.firstName}
-        height={10}
-        width={10}
       />
 
       <div className="grow">
