@@ -56,6 +56,9 @@ export const authSlice = createSlice({
       state.user = null;
       state.isLoggedIn = false;
     },
+    updateUserObj: (state, action) => {
+      state.user = action.payload.newUserObj;
+    },
   },
   extraReducers: {
     [handleLogIn.pending]: (state) => {
@@ -102,6 +105,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { handleLogOut } = authSlice.actions;
+export const { handleLogOut, updateUserObj } = authSlice.actions;
 
 export default authSlice.reducer;

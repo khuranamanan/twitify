@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router";
 import ProfileImage from "../../ProfileImage";
+import { useDispatch, useSelector } from "react-redux";
+import { followAUser } from "../../../redux/slices/allUsersSlice";
 
 function FollowSuggestionCard({ twitifyUser }) {
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleFollowBtnClick(event) {
     event.stopPropagation();
+    dispatch(followAUser({ followUserID: twitifyUser._id, token: token }));
   }
 
   return (
-    // <div>
-    //   {twitifyUser.firstName} {twitifyUser.lastName}
-    // </div>
     <div
       className="flex items-center justify-between gap-3 px-4 py-2 hover:bg-transparentWhite2 lg:w-full lg:mt-auto cursor-pointer"
       onClick={() => navigate(`/profile/${twitifyUser.username}`)}
