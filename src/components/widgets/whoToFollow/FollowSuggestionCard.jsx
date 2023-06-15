@@ -15,7 +15,7 @@ function FollowSuggestionCard({ twitifyUser }) {
 
   return (
     <div
-      className="flex items-center justify-between gap-3 px-4 py-2 hover:bg-transparentWhite2 lg:w-full lg:mt-auto cursor-pointer"
+      className="flex items-center justify-between gap-3 px-4 py-2 hover:bg-transparentWhite2 lg:w-full lg:mt-auto cursor-pointer transition-all ease-in-out duration-200"
       onClick={() => navigate(`/profile/${twitifyUser.username}`)}
     >
       <ProfileImage
@@ -29,7 +29,7 @@ function FollowSuggestionCard({ twitifyUser }) {
       </div>
 
       <button
-        className="bg-snow font-semibold rounded-full px-4 py-1 text-black"
+        className="bg-snow font-semibold rounded-full px-4 py-1 text-black hover:opacity-90"
         onClick={handleFollowBtnClick}
       >
         Follow

@@ -18,9 +18,14 @@ function WhoToFollow() {
   return (
     <div className="py-4 bg-transparentWhite max-h-[50%] rounded-3xl overflow-y-scroll no-scrollbar">
       <h2 className="text-white px-4 font-bold text-xl mb-4">Who to Follow</h2>
-      {followSuggestionList.map((twitifyUser) => (
-        <FollowSuggestionCard twitifyUser={twitifyUser} key={twitifyUser.id} />
-      ))}
+      <div className="flex flex-col gap-1">
+        {followSuggestionList.map((twitifyUser) => (
+          <FollowSuggestionCard
+            twitifyUser={twitifyUser}
+            key={twitifyUser.id}
+          />
+        ))}
+      </div>
     </div>
   );
 }
