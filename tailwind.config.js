@@ -5,7 +5,7 @@ module.exports = {
       ...require("tailwindcss/colors"),
       cyan: "#3fc1c9",
       snow: "#f5f5f5",
-      black: "#111111",
+      black: "#000000",
       aqua: "#67ced4",
       teal: "#2f9fa6",
       white: "#ffffff",
