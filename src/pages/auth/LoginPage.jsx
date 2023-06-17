@@ -55,7 +55,7 @@ function LoginPage() {
 
   return (
     <div className="h-full w-full flex justify-center items-center p-3 bg-gradient-to-br from-cyan to-snow">
-      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
+      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow overflow-y-scroll no-scrollbar">
         <div className="px-3 flex justify-center">
           <TwitifyFullLogo />
         </div>

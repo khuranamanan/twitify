@@ -14,7 +14,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div className="bg-black h-screen w-screen text-white">
+    <div className="bg-black h-dvh-screen w-screen text-white">
       <RouterProvider router={routes} />
     </div>
   );
