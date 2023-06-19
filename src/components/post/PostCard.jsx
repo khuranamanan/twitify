@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
+import { formatDate } from "../../utils/formatdate";
 
 function PostCard({ postData }) {
   const { allUsers } = useSelector((state) => state.allUsers);
@@ -9,7 +10,7 @@ function PostCard({ postData }) {
     (twitifyUser) => twitifyUser.username === postData.username
   );
 
-  const date = postData.createdAt;
+  const dateAndTime = formatDate(postData.createdAt);
 
   return (
     <div className="p-4 border-y border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center">
@@ -21,7 +22,7 @@ function PostCard({ postData }) {
       </div>
 
       <div className="row-start-1 row-end-2 col-start-3 col-end-4 self-start text-xs text-darkGray mt-2">
-        {date}
+        {dateAndTime}
       </div>
 
       <div className="flex flex-col col-start-2 col-end-3 row-start-1 row-end-2">

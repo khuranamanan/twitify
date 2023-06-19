@@ -16,7 +16,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "adarshbalika",
-    createdAt: formatDate(),
+    createdAt: "2023-06-20T01:30:10+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -28,7 +28,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "manankhurana",
-    createdAt: formatDate(),
+    createdAt: "2023-03-18T16:45:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -41,7 +41,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "manankhurana",
-    createdAt: formatDate(),
+    createdAt: "2023-05-01T22:30:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -54,7 +54,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "navalravikant",
-    createdAt: formatDate(),
+    createdAt: "2023-01-20T05:10:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -67,7 +67,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "navalravikant",
-    createdAt: formatDate(),
+    createdAt: "2023-04-08T11:45:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -80,7 +80,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "navalravikant",
-    createdAt: formatDate(),
+    createdAt: "2023-03-06T19:20:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -93,7 +93,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "navalravikant",
-    createdAt: formatDate(),
+    createdAt: "2023-05-16T00:55:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -106,7 +106,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "garyvee",
-    createdAt: formatDate(),
+    createdAt: "2023-02-28T06:30:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -119,7 +119,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "garyvee",
-    createdAt: formatDate(),
+    createdAt: "2023-05-06T13:00:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -132,7 +132,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "garyvee",
-    createdAt: formatDate(),
+    createdAt: "2023-03-26T19:35:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -145,7 +145,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "satyanadella",
-    createdAt: formatDate(),
+    createdAt: "2023-04-21T02:10:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -158,7 +158,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "timcook",
-    createdAt: formatDate(),
+    createdAt: "2023-01-08T08:50:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -171,7 +171,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "jeffbezos",
-    createdAt: formatDate(),
+    createdAt: "2023-03-30T15:25:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -184,7 +184,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "sundarpichai",
-    createdAt: formatDate(),
+    createdAt: "2023-04-16T22:00:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -197,7 +197,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "markzuckerberg",
-    createdAt: formatDate(),
+    createdAt: "2023-01-24T04:35:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -210,7 +210,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "billgates",
-    createdAt: formatDate(),
+    createdAt: "2023-02-20T11:10:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -223,7 +223,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "trevornoah",
-    createdAt: formatDate(),
+    createdAt: "2023-01-01T17:45:00+05:30",
     updatedAt: formatDate(),
   },
   {
@@ -236,7 +236,7 @@ export const posts = [
       dislikedBy: [],
     },
     username: "kunalshah",
-    createdAt: formatDate(),
+    createdAt: "2023-03-12T00:20:00+05:30",
     updatedAt: formatDate(),
   },
 ];
