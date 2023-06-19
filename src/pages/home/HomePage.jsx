@@ -1,4 +1,5 @@
 import { TwitifyLogoIconSmall } from "../../assets/icons";
+import CreateEditPost from "../../components/post/CreateEditPost";
 
 function HomePage() {
   return (
@@ -6,7 +7,7 @@ function HomePage() {
       <div className="sm:hidden bg-black px-4 pt-4 pb-5 flex justify-center border-b border-solid border-darkerGray h-fit">
         <TwitifyLogoIconSmall />
       </div>
-      HomePage
+      <CreateEditPost />
     </div>
   );
 }

@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllPostsService } from "../../services/posts/postsServices";
+import {
+  createPostService,
+  getAllPostsService,
+} from "../../services/posts/postsServices";
 
 const initialState = {
   allPosts: [],
@@ -19,6 +22,19 @@ export const getAllPosts = createAsyncThunk(
   }
 );
 
+export const createUserPost = createAsyncThunk(
+  "post/createUserPost",
+  async ({ post, token }, thunkAPI) => {
+    try {
+      const response = await createPostService(post, token);
+      return response.data;
+    } catch (err) {
+      console.log("Error from createUserPost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -33,6 +49,18 @@ export const postsSlice = createSlice({
     },
     [getAllPosts.rejected]: (state, action) => {
       console.log("Promise Rejected from getAllPosts", action.payload);
+      state.isLoading = false;
+    },
+
+    [createUserPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [createUserPost.fulfilled]: (state, action) => {
+      state.allPosts = action.payload.posts;
+      state.isLoading = false;
+    },
+    [createUserPost.rejected]: (state, payload) => {
+      console.log("promise Rejected from createUserPost", payload);
       state.isLoading = false;
     },
   },
