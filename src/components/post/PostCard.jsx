@@ -1,14 +1,16 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { formatDate } from "../../utils/formatdate";
 import { useState } from "react";
 import { EditPostIcon, EllipsesMenuIcon, TrashIcon } from "../../assets/icons";
+import { deleteUserPost } from "../../redux/slices/postsSlice";
 
 function PostCard({ postData }) {
   const { allUsers } = useSelector((state) => state.allUsers);
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dispatch = useDispatch();
 
   function handleMenuClick() {
     setIsMenuOpen(!isMenuOpen);
@@ -26,6 +28,11 @@ function PostCard({ postData }) {
     if (isThisUsersPost && isMenuOpen) {
       setIsMenuOpen(false);
     }
+  }
+
+  function handleDeletePostBtnClick(event) {
+    event.stopPropagation();
+    dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
   return (
@@ -67,7 +74,10 @@ function PostCard({ postData }) {
           <div className="py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite">
             <EditPostIcon /> Edit Post
           </div>
-          <div className="py-2 px-3 text-red-500 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite">
+          <div
+            className="py-2 px-3 text-red-500 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite"
+            onClick={handleDeletePostBtnClick}
+          >
             <TrashIcon /> Delete Post
           </div>
         </div>

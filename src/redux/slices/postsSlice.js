@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createPostService,
+  deleteUsersPostService,
   getAllPostsService,
 } from "../../services/posts/postsServices";
 
@@ -24,12 +25,25 @@ export const getAllPosts = createAsyncThunk(
 
 export const createUserPost = createAsyncThunk(
   "post/createUserPost",
-  async ({ post, token }, thunkAPI) => {
+  async function ({ post, token }, thunkAPI) {
     try {
       const response = await createPostService(post, token);
       return response.data;
     } catch (err) {
       console.log("Error from createUserPost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const deleteUserPost = createAsyncThunk(
+  "posts/deleteUserPost",
+  async function ({ postID, token }, thunkAPI) {
+    try {
+      const response = await deleteUsersPostService(postID, token);
+      return response.data;
+    } catch (err) {
+      console.log("Error from deleteUserPost", err);
       return thunkAPI.rejectWithValue(err.response.data.errors[0]);
     }
   }
@@ -61,6 +75,18 @@ export const postsSlice = createSlice({
     },
     [createUserPost.rejected]: (state, payload) => {
       console.log("promise Rejected from createUserPost", payload);
+      state.isLoading = false;
+    },
+
+    [deleteUserPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteUserPost.fulfilled]: (state, action) => {
+      state.allPosts = action.payload.posts;
+      state.isLoading = false;
+    },
+    [deleteUserPost.rejected]: (state, payload) => {
+      console.log("promise Rejected from deleteUserPost", payload);
       state.isLoading = false;
     },
   },
