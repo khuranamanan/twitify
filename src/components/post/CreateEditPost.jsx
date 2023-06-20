@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { createUserPost } from "../../redux/slices/postsSlice";
@@ -6,6 +6,7 @@ import { closePostModal } from "../../redux/slices/modalsSlice";
 
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
+  const { postModal } = useSelector((state) => state.modals);
   const [newPost, setNewPost] = useState({ content: "" });
   const dispatch = useDispatch();
 
@@ -24,6 +25,13 @@ function CreateEditPost({ fromModal = false }) {
       dispatch(closePostModal());
     }
   }
+
+  useEffect(() => {
+    if (!postModal && fromModal) {
+      setNewPost({ ...newPost, content: "" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postModal]);
 
   return (
     <div className="flex flex-col gap-2 p-4 border-y border-solid border-darkerGray">
