@@ -49,7 +49,9 @@ function CreateEditPost({ fromModal = false }) {
       </div>
       <div className="flex justify-end gap-4 items-center">
         {newPost.content.length !== 0 && (
-          <div className={`text-xs ${isOverCharacterLimit ? "text-red" : ""}`}>
+          <div
+            className={`text-xs ${isOverCharacterLimit ? "text-red-500" : ""}`}
+          >
             {characterCount}/240
           </div>
         )}

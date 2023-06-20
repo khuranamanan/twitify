@@ -53,7 +53,7 @@ function SignUpPage() {
   }
 
   const formInputErrorDisplay = formInputError && (
-    <p className="text-red text-xs text-center"> {formInputError} </p>
+    <p className="text-red-500 text-xs text-center"> {formInputError} </p>
   );
 
   function handleShowPasswordBtnClick(passwordType) {
