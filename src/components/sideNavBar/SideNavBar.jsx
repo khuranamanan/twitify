@@ -11,6 +11,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogOut } from "../../redux/slices/authSlice";
 import ProfileImage from "../ProfileImage";
+import { openPostModal } from "../../redux/slices/modalsSlice";
 
 function SideNavBar() {
   const { user } = useSelector((state) => state.auth);
@@ -19,6 +20,10 @@ function SideNavBar() {
 
   function handleNavLinkStyle({ isActive }) {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
+  }
+
+  function handlePostBtnClick() {
+    dispatch(openPostModal());
   }
 
   return (
@@ -53,7 +58,10 @@ function SideNavBar() {
         </button>
       </nav>
 
-      <button className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105">
+      <button
+        className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105"
+        onClick={handlePostBtnClick}
+      >
         <TwitIcon />
         <span className="hidden lg:inline-block">Twit</span>
       </button>

@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { createUserPost } from "../../redux/slices/postsSlice";
+import { closePostModal } from "../../redux/slices/modalsSlice";
 
-function CreateEditPost() {
+function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
   const [newPost, setNewPost] = useState({ content: "" });
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ function CreateEditPost() {
   function handlePostBtnClick() {
     dispatch(createUserPost({ post: { ...newPost }, token }));
     setNewPost({ ...newPost, content: "" });
+    if (fromModal) {
+      dispatch(closePostModal());
+    }
   }
 
   return (

@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import SideNavBar from "../components/sideNavBar/SideNavBar";
 import Widgets from "../components/widgets/Widgets";
+import PostModal from "../components/post/PostModal";
 
 function RootLayout() {
   return (
@@ -16,6 +17,8 @@ function RootLayout() {
       <aside className="hidden h-full lg:block overflow-y-scroll no-scrollbar">
         <Widgets />
       </aside>
+
+      <PostModal />
     </div>
   );
 }
