@@ -27,7 +27,7 @@ function SideNavBar() {
   }
 
   return (
-    <div className="relative bg-black font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
+    <div className="relative bg-black z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
       <div className="hidden px-3 sm:block">
         <TwitifyLogoIcon />
       </div>
