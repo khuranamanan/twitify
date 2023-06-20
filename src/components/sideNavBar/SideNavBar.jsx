@@ -62,7 +62,9 @@ function SideNavBar() {
         className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105"
         onClick={handlePostBtnClick}
       >
-        <TwitIcon />
+        <span className="lg:hidden">
+          <TwitIcon />
+        </span>
         <span className="hidden lg:inline-block">Twit</span>
       </button>
 
