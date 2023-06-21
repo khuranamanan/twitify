@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createPostService,
   deleteUsersPostService,
+  editPostService,
   getAllPostsService,
 } from "../../services/posts/postsServices";
 
@@ -49,6 +50,19 @@ export const deleteUserPost = createAsyncThunk(
   }
 );
 
+export const editUserPost = createAsyncThunk(
+  "posts/editUserPost",
+  async function ({ newPost, token }, thunkAPI) {
+    try {
+      const response = await editPostService(newPost, token);
+      return response.data;
+    } catch (err) {
+      console.log("Error from editUserPost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -87,6 +101,18 @@ export const postsSlice = createSlice({
     },
     [deleteUserPost.rejected]: (state, payload) => {
       console.log("promise Rejected from deleteUserPost", payload);
+      state.isLoading = false;
+    },
+
+    [editUserPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editUserPost.fulfilled]: (state, action) => {
+      state.allPosts = action.payload.posts;
+      state.isLoading = false;
+    },
+    [editUserPost.rejected]: (state, payload) => {
+      console.log("promise Rejected from editUserPost", payload);
       state.isLoading = false;
     },
   },

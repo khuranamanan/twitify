@@ -25,3 +25,17 @@ export function deleteUsersPostService(postID, token) {
     },
   });
 }
+
+export function editPostService(editedPost, token) {
+  return axios.post(
+    `/api/posts/edit/${editedPost._id}`,
+    {
+      postData: editedPost,
+    },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+}

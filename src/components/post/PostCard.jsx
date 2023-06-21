@@ -5,6 +5,7 @@ import { formatDate } from "../../utils/formatdate";
 import { useState } from "react";
 import { EditPostIcon, EllipsesMenuIcon, TrashIcon } from "../../assets/icons";
 import { deleteUserPost } from "../../redux/slices/postsSlice";
+import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
 
 function PostCard({ postData }) {
   const { allUsers } = useSelector((state) => state.allUsers);
@@ -30,8 +31,15 @@ function PostCard({ postData }) {
     }
   }
 
+  function handleEditPostBtnClick(event) {
+    event.stopPropagation();
+    setIsMenuOpen(false);
+    dispatch(openPostModalForEdit({ editPost: postData }));
+  }
+
   function handleDeletePostBtnClick(event) {
     event.stopPropagation();
+    setIsMenuOpen(false);
     dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
@@ -71,7 +79,10 @@ function PostCard({ postData }) {
       )}
       {isThisUsersPost && isMenuOpen && (
         <div className="bg-black absolute top-6 right-12 w-32 border border-solid border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
-          <div className="py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite">
+          <div
+            className="py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite"
+            onClick={handleEditPostBtnClick}
+          >
             <EditPostIcon /> Edit Post
           </div>
           <div

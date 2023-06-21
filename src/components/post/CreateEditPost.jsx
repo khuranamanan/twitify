@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
-import { createUserPost } from "../../redux/slices/postsSlice";
+import { createUserPost, editUserPost } from "../../redux/slices/postsSlice";
 import { closePostModal } from "../../redux/slices/modalsSlice";
 
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
-  const { postModal } = useSelector((state) => state.modals);
-  const [newPost, setNewPost] = useState({ content: "" });
+  const { postModal, editPostContent } = useSelector((state) => state.modals);
+  const [newPost, setNewPost] = useState({
+    content: editPostContent && fromModal ? editPostContent.content : "",
+  });
   const dispatch = useDispatch();
 
   function handleInputChange(event) {
@@ -17,6 +19,16 @@ function CreateEditPost({ fromModal = false }) {
 
   const characterCount = newPost.content.length;
   const isOverCharacterLimit = characterCount > 240;
+
+  function handlePostUpdateBtnClick() {
+    dispatch(
+      editUserPost({ newPost: { ...editPostContent, ...newPost }, token })
+    );
+    setNewPost({ ...newPost, content: "" });
+    if (fromModal) {
+      dispatch(closePostModal());
+    }
+  }
 
   function handlePostBtnClick() {
     dispatch(createUserPost({ post: { ...newPost }, token }));
@@ -41,7 +53,9 @@ function CreateEditPost({ fromModal = false }) {
           userFirstName={user.userFirstName}
         />
         <textarea
-          className="flex-grow py-2 px-3 focus:outline-none text-white bg-inherit h-24 border-none resize-none"
+          className={`flex-grow py-2 px-3 focus:outline-none text-white bg-inherit ${
+            fromModal ? "h-40" : "h-24"
+          } border-none resize-none`}
           placeholder="What's happening?!"
           value={newPost.content}
           onChange={handleInputChange}
@@ -55,12 +69,17 @@ function CreateEditPost({ fromModal = false }) {
             {characterCount}/240
           </div>
         )}
+
         <button
           className="text-white px-4 py-2 rounded-full bg-cyan disabled:opacity-50 disabled:cursor-not-allowed font-medium hover:bg-aqua"
           disabled={isOverCharacterLimit || newPost.content.trim().length === 0}
-          onClick={handlePostBtnClick}
+          onClick={
+            editPostContent && fromModal
+              ? handlePostUpdateBtnClick
+              : handlePostBtnClick
+          }
         >
-          Twit
+          {editPostContent && fromModal ? "Update" : "Twit"}
         </button>
       </div>
     </div>
