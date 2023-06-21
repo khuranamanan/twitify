@@ -200,7 +200,7 @@ export function EyeFill() {
 export function TwitifyFullLogo() {
   return (
     <svg
-      className="text h-20"
+      className="h-20"
       xmlns="http://www.w3.org/2000/svg"
       xlinkHref="http://www.w3.org/1999/xlink"
       version="1.1"
@@ -208,11 +208,6 @@ export function TwitifyFullLogo() {
       height="1169.0488430518144"
       viewBox="0 0 3162.2632417413315 1169.0488430518144"
     >
-      <rect
-        fill="#111111"
-        width="3162.2632417413315"
-        height="1169.0488430518144"
-      />
       <g transform="scale(8.113162087066575) translate(10, 10)">
         <defs id="SvgjsDefs2857"></defs>
         <g
