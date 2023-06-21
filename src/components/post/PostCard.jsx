@@ -45,7 +45,7 @@ function PostCard({ postData }) {
 
   return (
     <div
-      className="relative p-4 border-y border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center"
+      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center"
       onClick={handlePostClick}
     >
       <div className="col-start-1 col-end-2 w-fit">

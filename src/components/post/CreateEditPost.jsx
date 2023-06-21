@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { createUserPost, editUserPost } from "../../redux/slices/postsSlice";
 import { closePostModal } from "../../redux/slices/modalsSlice";
+import { POST_CHAR_LIMIT } from "../../utils/constant";
 
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
@@ -18,7 +19,7 @@ function CreateEditPost({ fromModal = false }) {
   }
 
   const characterCount = newPost.content.length;
-  const isOverCharacterLimit = characterCount > 240;
+  const isOverCharacterLimit = characterCount > POST_CHAR_LIMIT;
 
   function handlePostUpdateBtnClick() {
     dispatch(
@@ -66,7 +67,7 @@ function CreateEditPost({ fromModal = false }) {
           <div
             className={`text-xs ${isOverCharacterLimit ? "text-red-500" : ""}`}
           >
-            {characterCount}/240
+            {characterCount}/{POST_CHAR_LIMIT}
           </div>
         )}
 

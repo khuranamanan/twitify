@@ -13,7 +13,7 @@ function ExplorePage() {
 
   return (
     <div className="mb-[64px] sm:mb-4">
-      <div className="bg-black px-4 py-3 border-b border-solid border-darkerGray text-3xl font-bold">
+      <div className="bg-black font-inter px-4 py-3 border-b border-solid border-darkerGray text-xl font-bold">
         <h1>Explore</h1>
       </div>
       {sortedPostsByDate.map((post) => (
