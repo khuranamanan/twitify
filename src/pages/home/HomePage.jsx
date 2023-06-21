@@ -11,6 +11,7 @@ import { SORT_TYPES } from "../../utils/constant";
 import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import PostCard from "../../components/post/PostCard";
+import { Fragment } from "react";
 
 function HomePage() {
   const { allPosts, isLoading } = useSelector((state) => state.posts);
@@ -61,7 +62,11 @@ function HomePage() {
       <BeatLoader color="#2f9fa6" />
     </div>
   ) : sortedPosts?.length ? (
-    sortedPosts.map((post) => <PostCard postData={post} />)
+    sortedPosts.map((post) => (
+      <Fragment key={post._id}>
+        <PostCard postData={post} />
+      </Fragment>
+    ))
   ) : (
     <p className="text-center p-4 font-semibold">
       Follow users to see their posts here!
