@@ -55,7 +55,7 @@ function CreateEditPost({ fromModal = false }) {
         />
         <textarea
           className={`flex-grow py-2 px-3 focus:outline-none text-white bg-inherit ${
-            fromModal ? "h-40" : "h-24"
+            fromModal ? "h-40" : "h-16 sm:h-24"
           } border-none resize-none`}
           placeholder="What's happening?!"
           value={newPost.content}

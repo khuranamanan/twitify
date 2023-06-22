@@ -55,17 +55,17 @@ function PostCard({ postData }) {
         />
       </div>
 
-      <div className="row-start-1 row-end-2 col-start-3 col-end-4 self-start text-xs text-darkGray mt-2 mr-9">
+      <div className="row-start-1 row-end-2 col-start-3 col-end-4 self-start text-[0.7rem] text-darkGray mt-2 mr-9 sm:text-xs">
         {dateAndTime}
       </div>
 
       <div className="flex flex-col col-start-2 col-end-3 row-start-1 row-end-2">
-        <p className="text-lg font-bold">{`${currentPostUser.firstName} ${currentPostUser.lastName}`}</p>
-        <p className="text-sm text-darkGray">{`@${postData.username}`}</p>
+        <p className="text-base font-bold sm:text-lg">{`${currentPostUser.firstName} ${currentPostUser.lastName}`}</p>
+        <p className="text-xs text-darkGray sm:text-sm">{`@${postData.username}`}</p>
       </div>
 
       <div className="col-start-2 col-end-4 row-start-2 row-end-3">
-        <p>{postData.content}</p>
+        <p className="bg-black text-sm sm:text-base">{postData.content}</p>
       </div>
 
       {/* User's Post Options */}
