@@ -6,12 +6,18 @@ import { useState } from "react";
 import { EditPostIcon, EllipsesMenuIcon, TrashIcon } from "../../assets/icons";
 import { deleteUserPost } from "../../redux/slices/postsSlice";
 import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
+import { useRef } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
 
 function PostCard({ postData }) {
   const { allUsers } = useSelector((state) => state.allUsers);
   const { user, token } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const dispatch = useDispatch();
+  const cardMenuRef = useRef();
+  useClickOutside(cardMenuRef, () => {
+    setIsMenuOpen(false);
+  });
 
   function handleMenuClick() {
     setIsMenuOpen(!isMenuOpen);
@@ -24,12 +30,6 @@ function PostCard({ postData }) {
   );
 
   const dateAndTime = formatDate(postData.createdAt);
-
-  function handlePostClick() {
-    if (isThisUsersPost && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }
 
   function handleEditPostBtnClick(event) {
     event.stopPropagation();
@@ -44,10 +44,7 @@ function PostCard({ postData }) {
   }
 
   return (
-    <div
-      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center"
-      onClick={handlePostClick}
-    >
+    <div className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center">
       <div className="col-start-1 col-end-2 w-fit">
         <ProfileImage
           userImage={currentPostUser.profileImg}
@@ -73,6 +70,7 @@ function PostCard({ postData }) {
         <div
           className="absolute top-3 right-3 p-1 select-none hover:bg-transparentWhite rounded-full text-darkGray cursor-pointer"
           onClick={handleMenuClick}
+          ref={cardMenuRef}
         >
           <EllipsesMenuIcon />
         </div>

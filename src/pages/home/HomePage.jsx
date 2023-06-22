@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   ChevronDownIcon,
   ChevronUpIcon,
@@ -12,12 +12,17 @@ import { useSelector } from "react-redux";
 import { BeatLoader } from "react-spinners";
 import PostCard from "../../components/post/PostCard";
 import { Fragment } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
 
 function HomePage() {
   const { allPosts, isLoading } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
   const [sortType, setSortType] = useState(SORT_TYPES.LATEST);
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const sortMenuRef = useRef();
+  useClickOutside(sortMenuRef, () => {
+    setIsSortMenuOpen(false);
+  });
 
   function handleSortBtnClick() {
     setIsSortMenuOpen(!isSortMenuOpen);
@@ -90,6 +95,7 @@ function HomePage() {
         <button
           className="relative p-2 rounded-full hover:text-aqua hover:bg-transparentWhite"
           onClick={handleSortBtnClick}
+          ref={sortMenuRef}
         >
           <SortIcon />
         </button>
