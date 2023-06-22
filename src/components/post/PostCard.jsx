@@ -65,7 +65,7 @@ function PostCard({ postData }) {
       </div>
 
       <div className="col-start-2 col-end-4 row-start-2 row-end-3">
-        <p className="bg-black text-sm sm:text-base">{postData.content}</p>
+        <p className="text-sm sm:text-base">{postData.content}</p>
       </div>
 
       {/* User's Post Options */}

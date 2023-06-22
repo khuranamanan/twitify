@@ -29,7 +29,17 @@
 
 @layer utilities {
   .h-dvh-screen {
-    height: 100vh; /* fallback for Opera, IE and etc. */
-    height: 100dvh;
+    min-height: 100vh; /* fallback for Opera, IE and etc. */
+    min-height: 100dvh;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
