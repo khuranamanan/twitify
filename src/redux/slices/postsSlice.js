@@ -4,6 +4,8 @@ import {
   deleteUsersPostService,
   editPostService,
   getAllPostsService,
+  likePostService,
+  unlikePostService,
 } from "../../services/posts/postsServices";
 
 const initialState = {
@@ -63,6 +65,32 @@ export const editUserPost = createAsyncThunk(
   }
 );
 
+export const likePost = createAsyncThunk(
+  "posts/likePost",
+  async function ({ postID, token }, thunkAPI) {
+    try {
+      const response = await likePostService(postID, token);
+      return response.data;
+    } catch (err) {
+      console.log("Error from likePost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const unlikePost = createAsyncThunk(
+  "posts/unlikePost",
+  async function ({ postID, token }, thunkAPI) {
+    try {
+      const response = await unlikePostService(postID, token);
+      return response.data;
+    } catch (err) {
+      console.log("Error from unlikePost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -114,6 +142,20 @@ export const postsSlice = createSlice({
     [editUserPost.rejected]: (state, payload) => {
       console.log("promise Rejected from editUserPost", payload);
       state.isLoading = false;
+    },
+
+    [likePost.fulfilled]: (state, action) => {
+      state.allPosts = action.payload.posts;
+    },
+    [likePost.rejected]: (state, payload) => {
+      console.log("promise Rejected from likePost", payload);
+    },
+
+    [unlikePost.fulfilled]: (state, action) => {
+      state.allPosts = action.payload.posts;
+    },
+    [unlikePost.rejected]: (state, payload) => {
+      console.log("promise Rejected from unlikePost", payload);
     },
   },
 });

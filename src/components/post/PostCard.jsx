@@ -3,8 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { formatDate } from "../../utils/formatdate";
 import { useState } from "react";
-import { EditPostIcon, EllipsesMenuIcon, TrashIcon } from "../../assets/icons";
-import { deleteUserPost } from "../../redux/slices/postsSlice";
+import {
+  EditPostIcon,
+  EllipsesMenuIcon,
+  HeartFilledIcon,
+  HeartIcon,
+  TrashIcon,
+} from "../../assets/icons";
+import {
+  deleteUserPost,
+  likePost,
+  unlikePost,
+} from "../../redux/slices/postsSlice";
 import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
 import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
@@ -31,6 +41,10 @@ function PostCard({ postData }) {
 
   const dateAndTime = formatDate(postData.createdAt);
 
+  const isLiked = postData.likes.likedBy.some(
+    (twitifyUser) => twitifyUser.username === user.username
+  );
+
   function handleEditPostBtnClick(event) {
     event.stopPropagation();
     setIsMenuOpen(false);
@@ -43,8 +57,32 @@ function PostCard({ postData }) {
     dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
+  function handlePostLikeBtnClick(event) {
+    event.stopPropagation();
+    dispatch(likePost({ postID: postData._id, token }));
+  }
+
+  function handlePostDislikeBtnClick(event) {
+    event.stopPropagation();
+    dispatch(unlikePost({ postID: postData._id, token }));
+  }
+
+  const postLikeUnlikeButton = (
+    <button
+      onClick={isLiked ? handlePostDislikeBtnClick : handlePostLikeBtnClick}
+      className={`relative p-2 ${
+        isLiked && "text-rose-600"
+      }  hover:bg-transparentWhite hover:text-rose-600 rounded-full transition`}
+    >
+      {isLiked ? <HeartFilledIcon /> : <HeartIcon />}{" "}
+      <span className="absolute right-[-50%] top-0 bottom-0 p-2">
+        {!!postData.likes.likeCount && postData.likes.likeCount}
+      </span>
+    </button>
+  );
+
   return (
-    <div className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center">
+    <div className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center">
       <div className="col-start-1 col-end-2 w-fit">
         <ProfileImage
           userImage={currentPostUser.profileImg}
@@ -63,6 +101,11 @@ function PostCard({ postData }) {
 
       <div className="col-start-2 col-end-4 row-start-2 row-end-3">
         <p className="text-sm sm:text-base">{postData.content}</p>
+      </div>
+
+      {/* Buttons */}
+      <div className="col-start-2 col-end-4 row-start-3 row-end-4 text-sm text-darkGray flex justify-around">
+        {postLikeUnlikeButton}
       </div>
 
       {/* User's Post Options */}
