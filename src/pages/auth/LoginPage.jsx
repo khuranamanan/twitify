@@ -54,8 +54,8 @@ function LoginPage() {
   }, [isLoggedIn, navigate, location]);
 
   return (
-    <div className="min-h-[100dvh] w-full flex justify-center items-center p-3 bg-gradient-to-br from-cyan to-snow">
-      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray shadow-md shadow-snow">
+    <div className="min-h-[100dvh] w-full flex justify-center items-center p-3 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-blue-100 via-blue-200 to-cyan">
+      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray">
         <div className="px-3 flex justify-center">
           <TwitifyFullLogo />
         </div>
