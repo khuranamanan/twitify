@@ -10,7 +10,8 @@ import {
 } from "../../assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogOut } from "../../redux/slices/authSlice";
-import defaultProfileImg from "../../assets/defaultProfileImg.png";
+import ProfileImage from "../ProfileImage";
+import { openPostModal } from "../../redux/slices/modalsSlice";
 
 function SideNavBar() {
   const { user } = useSelector((state) => state.auth);
@@ -21,13 +22,17 @@ function SideNavBar() {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
   }
 
+  function handlePostBtnClick() {
+    dispatch(openPostModal());
+  }
+
   return (
-    <div className="relative bg-black font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full">
+    <div className="relative bg-black z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
       <div className="hidden px-3 sm:block">
         <TwitifyLogoIcon />
       </div>
 
-      <nav className="text-xl flex gap-4 w-full justify-around items-center lg:w-[15rem] sm:justify-normal sm:flex-col lg:items-start">
+      <nav className="text-xl flex gap-4 w-full justify-around items-center sm:justify-normal sm:flex-col lg:items-start">
         <NavLink to="/" className={handleNavLinkStyle}>
           <HomeIcon />
           <span className="hidden lg:block items-center">Home</span>
@@ -53,8 +58,13 @@ function SideNavBar() {
         </button>
       </nav>
 
-      <button className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105">
-        <TwitIcon />
+      <button
+        className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105"
+        onClick={handlePostBtnClick}
+      >
+        <span className="lg:hidden">
+          <TwitIcon />
+        </span>
         <span className="hidden lg:inline-block">Twit</span>
       </button>
 
@@ -62,12 +72,10 @@ function SideNavBar() {
         className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer"
         onClick={() => navigate(`/profile/${user.username}`)}
       >
-        <div className="bg-snow w-10 h-10 aspect-square rounded-full border border-solid border-white">
-          <img
-            src={user.profileImg || defaultProfileImg}
-            alt={user.firstName}
-          />
-        </div>
+        <ProfileImage
+          userImage={user.profileImg}
+          userFirstName={user.firstName}
+        />
 
         <div>
           <p>{`${user.firstName} ${user.lastName}`}</p>
