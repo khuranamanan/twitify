@@ -4,8 +4,10 @@ import { useLocation, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { handleLogIn } from "../../redux/slices/authSlice";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 function LoginPage() {
+  useDocumentTitle("Log In | Twitify");
   const [logInFormData, setLogInFormData] = useState({
     username: "",
     password: "",

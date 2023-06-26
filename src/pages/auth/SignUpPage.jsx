@@ -4,8 +4,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleSignUp } from "../../redux/slices/authSlice";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 function SignUpPage() {
+  useDocumentTitle("Sign Up | Twitify");
   const { isLoggedIn } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();

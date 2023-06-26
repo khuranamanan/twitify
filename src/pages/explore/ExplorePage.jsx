@@ -2,8 +2,10 @@ import { useSelector } from "react-redux";
 import PostCard from "../../components/post/PostCard";
 import { Fragment } from "react";
 import { BeatLoader } from "react-spinners";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 function ExplorePage() {
+  useDocumentTitle("Explore | Twitify");
   const { allPosts, isLoading } = useSelector((state) => state.posts);
 
   const sortedPostsByDate = [...allPosts].sort((a, b) => {

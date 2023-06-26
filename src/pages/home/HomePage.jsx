@@ -13,8 +13,10 @@ import { BeatLoader } from "react-spinners";
 import PostCard from "../../components/post/PostCard";
 import { Fragment } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import useDocumentTitle from "../../hooks/useDocumentTitle";
 
 function HomePage() {
+  useDocumentTitle("Twitify");
   const { allPosts, isLoading } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
   const [sortType, setSortType] = useState(SORT_TYPES.LATEST);
