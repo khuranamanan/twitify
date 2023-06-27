@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 import PostCard from "../../components/post/PostCard";
 import { Fragment } from "react";
-import { BeatLoader } from "react-spinners";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import PostSkeleton from "../../components/post/PostSkeleton";
 
 function ExplorePage() {
   useDocumentTitle("Explore | Twitify");
-  const { allPosts, isLoading } = useSelector((state) => state.posts);
+  const { allPosts, initialLoading } = useSelector((state) => state.posts);
 
   const sortedPostsByDate = [...allPosts].sort((a, b) => {
     const dateA = new Date(a.createdAt);
@@ -14,9 +14,9 @@ function ExplorePage() {
     return dateB - dateA; // Sort in descending order (newest to oldest)
   });
 
-  const sortedPostsMapped = isLoading ? (
+  const sortedPostsMapped = initialLoading ? (
     <div className="flex justify-center p-4">
-      <BeatLoader color="#2f9fa6" />
+      <PostSkeleton />
     </div>
   ) : sortedPostsByDate?.length ? (
     sortedPostsByDate.map((post) => (

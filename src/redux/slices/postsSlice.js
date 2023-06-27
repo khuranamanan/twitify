@@ -11,6 +11,7 @@ import {
 const initialState = {
   allPosts: [],
   isLoading: false,
+  initialLoading: false,
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -98,14 +99,17 @@ export const postsSlice = createSlice({
   extraReducers: {
     [getAllPosts.pending]: (state) => {
       state.isLoading = true;
+      state.initialLoading = true;
     },
     [getAllPosts.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
       state.isLoading = false;
+      state.initialLoading = false;
     },
     [getAllPosts.rejected]: (state, action) => {
       console.log("Promise Rejected from getAllPosts", action.payload);
       state.isLoading = false;
+      state.initialLoading = false;
     },
 
     [createUserPost.pending]: (state) => {
