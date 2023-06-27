@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import PostCard from "../../components/post/PostCard";
-import { Fragment } from "react";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import PostSkeleton from "../../components/post/PostSkeleton";
+import FlipMove from "react-flip-move";
 
 function ExplorePage() {
   useDocumentTitle("Explore | Twitify");
@@ -19,11 +19,11 @@ function ExplorePage() {
       <PostSkeleton />
     </div>
   ) : sortedPostsByDate?.length ? (
-    sortedPostsByDate.map((post) => (
-      <Fragment key={post._id}>
-        <PostCard postData={post} />
-      </Fragment>
-    ))
+    <FlipMove>
+      {sortedPostsByDate.map((post) => (
+        <PostCard postData={post} key={post._id} />
+      ))}
+    </FlipMove>
   ) : (
     <p className="text-center p-4 font-semibold">No posts here!</p>
   );

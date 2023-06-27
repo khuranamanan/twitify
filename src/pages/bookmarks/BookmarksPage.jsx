@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
-import { Fragment } from "react";
 import PostCard from "../../components/post/PostCard";
+import FlipMove from "react-flip-move";
 
 function BookmarksPage() {
   useDocumentTitle("Bookmarks | Twitify");
@@ -20,11 +20,11 @@ function BookmarksPage() {
 
   const bookmarksMapped = user.bookmarks.length ? (
     <div>
-      {sortedPostsByDate.map((post) => (
-        <Fragment key={post._id}>
-          <PostCard postData={post} />
-        </Fragment>
-      ))}
+      <FlipMove>
+        {sortedPostsByDate.map((post) => (
+          <PostCard postData={post} key={post._id} />
+        ))}
+      </FlipMove>
     </div>
   ) : (
     <p className="text-center p-4 font-semibold">

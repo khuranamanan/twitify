@@ -10,10 +10,10 @@ import CreateEditPost from "../../components/post/CreateEditPost";
 import { SORT_TYPES } from "../../utils/constant";
 import { useSelector } from "react-redux";
 import PostCard from "../../components/post/PostCard";
-import { Fragment } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
 import PostSkeleton from "../../components/post/PostSkeleton";
+import FlipMove from "react-flip-move";
 
 function HomePage() {
   useDocumentTitle("Twitify");
@@ -69,11 +69,11 @@ function HomePage() {
       <PostSkeleton />
     </div>
   ) : sortedPosts?.length ? (
-    sortedPosts.map((post) => (
-      <Fragment key={post._id}>
-        <PostCard postData={post} />
-      </Fragment>
-    ))
+    <FlipMove>
+      {sortedPosts.map((post) => (
+        <PostCard postData={post} key={post._id} />
+      ))}
+    </FlipMove>
   ) : (
     <p className="text-center p-4 font-semibold">
       Follow users to see their posts here!

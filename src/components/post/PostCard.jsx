@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { formatDate } from "../../utils/formatdate";
@@ -22,7 +22,7 @@ import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { bookmarkPost, removeBookmarkPost } from "../../redux/slices/authSlice";
 
-function PostCard({ postData }) {
+const PostCard = forwardRef(({ postData }, ref) => {
   const { allUsers } = useSelector((state) => state.allUsers);
   const { user, token } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -62,29 +62,28 @@ function PostCard({ postData }) {
     dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
-  function handlePostLikeBtnClick(event) {
-    event.stopPropagation();
+  function handlePostLikeBtnClick() {
     dispatch(likePost({ postID: postData._id, token }));
   }
 
-  function handlePostDislikeBtnClick(event) {
-    event.stopPropagation();
+  function handlePostDislikeBtnClick() {
     dispatch(unlikePost({ postID: postData._id, token }));
   }
 
-  function handleBookmarkPostBtnClick(event) {
-    event.stopPropagation();
+  function handleBookmarkPostBtnClick() {
     dispatch(bookmarkPost({ postID: postData._id, token }));
   }
 
-  function handleRemoveBookmarkPostBtnClick(event) {
-    event.stopPropagation();
+  function handleRemoveBookmarkPostBtnClick() {
     dispatch(removeBookmarkPost({ postID: postData._id, token }));
   }
 
   const postLikeUnlikeButton = (
     <button
-      onClick={isLiked ? handlePostDislikeBtnClick : handlePostLikeBtnClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        isLiked ? handlePostDislikeBtnClick() : handlePostLikeBtnClick();
+      }}
       className={`relative p-2 ${
         isLiked && "text-rose-600"
       }  hover:bg-transparentWhite hover:text-rose-600 rounded-full transition`}
@@ -101,18 +100,22 @@ function PostCard({ postData }) {
       className={`p-2 ${
         isBookmarked && "text-cyan"
       }  hover:bg-transparentWhite hover:text-cyan rounded-full transition`}
-      onClick={
+      onClick={(e) => {
+        e.stopPropagation();
         isBookmarked
-          ? handleRemoveBookmarkPostBtnClick
-          : handleBookmarkPostBtnClick
-      }
+          ? handleRemoveBookmarkPostBtnClick()
+          : handleBookmarkPostBtnClick();
+      }}
     >
       {isBookmarked ? <BookmarkPostFilledIcon /> : <BookmarkPostIcon />}
     </button>
   );
 
   return (
-    <div className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center">
+    <div
+      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center"
+      ref={ref}
+    >
       <div className="col-start-1 col-end-2 w-fit">
         <ProfileImage
           userImage={currentPostUser.profileImg}
@@ -167,6 +170,6 @@ function PostCard({ postData }) {
       )}
     </div>
   );
-}
+});
 
 export default PostCard;
