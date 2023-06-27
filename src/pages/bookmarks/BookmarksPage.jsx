@@ -9,12 +9,18 @@ function BookmarksPage() {
   const { allPosts } = useSelector((state) => state.posts);
 
   const bookmarkPostsList = allPosts.filter((post) =>
-    user.bookmarks.some((bookmarkPost) => bookmarkPost._id === post._id)
+    user.bookmarks.some((bookmarkPostID) => bookmarkPostID === post._id)
   );
+
+  const sortedPostsByDate = [...bookmarkPostsList].sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return dateB - dateA; // Sort in descending order (newest to oldest)
+  });
 
   const bookmarksMapped = user.bookmarks.length ? (
     <div>
-      {bookmarkPostsList.map((post) => (
+      {sortedPostsByDate.map((post) => (
         <Fragment key={post._id}>
           <PostCard postData={post} />
         </Fragment>

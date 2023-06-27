@@ -48,7 +48,7 @@ function PostCard({ postData }) {
     (twitifyUser) => twitifyUser.username === user.username
   );
 
-  const isBookmarked = user.bookmarks.some((post) => post._id === postData._id);
+  const isBookmarked = user.bookmarks.some((postID) => postID === postData._id);
 
   function handleEditPostBtnClick(event) {
     event.stopPropagation();
