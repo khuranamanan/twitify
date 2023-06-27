@@ -4,6 +4,8 @@ import ProfileImage from "../ProfileImage";
 import { formatDate } from "../../utils/formatdate";
 import { useState } from "react";
 import {
+  BookmarkPostFilledIcon,
+  BookmarkPostIcon,
   EditPostIcon,
   EllipsesMenuIcon,
   HeartFilledIcon,
@@ -18,6 +20,7 @@ import {
 import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
 import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import { bookmarkPost, removeBookmarkPost } from "../../redux/slices/authSlice";
 
 function PostCard({ postData }) {
   const { allUsers } = useSelector((state) => state.allUsers);
@@ -45,6 +48,8 @@ function PostCard({ postData }) {
     (twitifyUser) => twitifyUser.username === user.username
   );
 
+  const isBookmarked = user.bookmarks.some((post) => post._id === postData._id);
+
   function handleEditPostBtnClick(event) {
     event.stopPropagation();
     setIsMenuOpen(false);
@@ -67,6 +72,16 @@ function PostCard({ postData }) {
     dispatch(unlikePost({ postID: postData._id, token }));
   }
 
+  function handleBookmarkPostBtnClick(event) {
+    event.stopPropagation();
+    dispatch(bookmarkPost({ postID: postData._id, token }));
+  }
+
+  function handleRemoveBookmarkPostBtnClick(event) {
+    event.stopPropagation();
+    dispatch(removeBookmarkPost({ postID: postData._id, token }));
+  }
+
   const postLikeUnlikeButton = (
     <button
       onClick={isLiked ? handlePostDislikeBtnClick : handlePostLikeBtnClick}
@@ -78,6 +93,21 @@ function PostCard({ postData }) {
       <span className="absolute right-[-50%] top-0 bottom-0 p-2">
         {!!postData.likes.likeCount && postData.likes.likeCount}
       </span>
+    </button>
+  );
+
+  const postBookmarkUnbookmarkButton = (
+    <button
+      className={`p-2 ${
+        isBookmarked && "text-cyan"
+      }  hover:bg-transparentWhite hover:text-cyan rounded-full transition`}
+      onClick={
+        isBookmarked
+          ? handleRemoveBookmarkPostBtnClick
+          : handleBookmarkPostBtnClick
+      }
+    >
+      {isBookmarked ? <BookmarkPostFilledIcon /> : <BookmarkPostIcon />}
     </button>
   );
 
@@ -105,6 +135,7 @@ function PostCard({ postData }) {
 
       {/* Buttons */}
       <div className="col-start-2 col-end-4 row-start-3 row-end-4 text-sm text-darkGray flex justify-around">
+        {postBookmarkUnbookmarkButton}
         {postLikeUnlikeButton}
       </div>
 
