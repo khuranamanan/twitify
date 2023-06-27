@@ -56,15 +56,15 @@ export const editUserHandler = function (schema, request) {
       );
     }
     const { userData } = JSON.parse(request.requestBody);
-    console.log(userData && userData.username && userData.username !== user.username);
+    console.log(
+      userData && userData.username && userData.username !== user.username
+    );
     if (userData && userData.username && userData.username !== user.username) {
       return new Response(
         404,
         {},
         {
-          errors: [
-            "Username cannot be changed",
-          ],
+          errors: ["Username cannot be changed"],
         }
       );
     }
@@ -144,7 +144,14 @@ export const bookmarkPostHandler = function (schema, request) {
         { errors: ["This Post is already bookmarked"] }
       );
     }
-    user.bookmarks.push({ _id:post._id, username: post.username, content: post.content, createdAt: post.createdAt, updatedAt: post.updatedAt });
+    user.bookmarks.push({
+      _id: post._id,
+      username: post.username,
+      content: post.content,
+      likes: post.likes,
+      createdAt: post.createdAt,
+      updatedAt: post.updatedAt,
+    });
     // this.db.users.update(
     //   { _id: user._id },
     //   { ...user, updatedAt: formatDate() }
@@ -234,9 +241,7 @@ export const followUserHandler = function (schema, request) {
         404,
         {},
         {
-          errors: [
-            "You cannot follow yourself"
-          ],
+          errors: ["You cannot follow yourself"],
         }
       );
     }
