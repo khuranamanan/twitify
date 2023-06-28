@@ -1,15 +1,28 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfileImage from "../ProfileImage";
 import { formatDate } from "../../utils/formatdate";
 import { useState } from "react";
-import { EditPostIcon, EllipsesMenuIcon, TrashIcon } from "../../assets/icons";
-import { deleteUserPost } from "../../redux/slices/postsSlice";
+import {
+  BookmarkPostFilledIcon,
+  BookmarkPostIcon,
+  EditPostIcon,
+  EllipsesMenuIcon,
+  HeartFilledIcon,
+  HeartIcon,
+  TrashIcon,
+} from "../../assets/icons";
+import {
+  deleteUserPost,
+  likePost,
+  unlikePost,
+} from "../../redux/slices/postsSlice";
 import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
 import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import { bookmarkPost, removeBookmarkPost } from "../../redux/slices/authSlice";
 
-function PostCard({ postData }) {
+const PostCard = forwardRef(({ postData }, ref) => {
   const { allUsers } = useSelector((state) => state.allUsers);
   const { user, token } = useSelector((state) => state.auth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -31,6 +44,12 @@ function PostCard({ postData }) {
 
   const dateAndTime = formatDate(postData.createdAt);
 
+  const isLiked = postData.likes.likedBy.some(
+    (twitifyUser) => twitifyUser.username === user.username
+  );
+
+  const isBookmarked = user.bookmarks.some((postID) => postID === postData._id);
+
   function handleEditPostBtnClick(event) {
     event.stopPropagation();
     setIsMenuOpen(false);
@@ -43,8 +62,60 @@ function PostCard({ postData }) {
     dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
+  function handlePostLikeBtnClick() {
+    dispatch(likePost({ postID: postData._id, token }));
+  }
+
+  function handlePostDislikeBtnClick() {
+    dispatch(unlikePost({ postID: postData._id, token }));
+  }
+
+  function handleBookmarkPostBtnClick() {
+    dispatch(bookmarkPost({ postID: postData._id, token }));
+  }
+
+  function handleRemoveBookmarkPostBtnClick() {
+    dispatch(removeBookmarkPost({ postID: postData._id, token }));
+  }
+
+  const postLikeUnlikeButton = (
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        isLiked ? handlePostDislikeBtnClick() : handlePostLikeBtnClick();
+      }}
+      className={`relative p-2 ${
+        isLiked && "text-rose-600"
+      }  hover:bg-transparentWhite hover:text-rose-600 rounded-full transition`}
+    >
+      {isLiked ? <HeartFilledIcon /> : <HeartIcon />}{" "}
+      <span className="absolute right-[-50%] top-0 bottom-0 p-2">
+        {!!postData.likes.likeCount && postData.likes.likeCount}
+      </span>
+    </button>
+  );
+
+  const postBookmarkUnbookmarkButton = (
+    <button
+      className={`p-2 ${
+        isBookmarked && "text-cyan"
+      }  hover:bg-transparentWhite hover:text-cyan rounded-full transition`}
+      onClick={(e) => {
+        e.stopPropagation();
+        isBookmarked
+          ? handleRemoveBookmarkPostBtnClick()
+          : handleBookmarkPostBtnClick();
+      }}
+    >
+      {isBookmarked ? <BookmarkPostFilledIcon /> : <BookmarkPostIcon />}
+    </button>
+  );
+
   return (
-    <div className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto]  gap-x-4 gap-y-2 justify-start items-center">
+    <div
+      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center"
+      ref={ref}
+    >
       <div className="col-start-1 col-end-2 w-fit">
         <ProfileImage
           userImage={currentPostUser.profileImg}
@@ -63,6 +134,12 @@ function PostCard({ postData }) {
 
       <div className="col-start-2 col-end-4 row-start-2 row-end-3">
         <p className="text-sm sm:text-base">{postData.content}</p>
+      </div>
+
+      {/* Buttons */}
+      <div className="col-start-2 col-end-4 row-start-3 row-end-4 text-sm text-darkGray flex justify-around">
+        {postBookmarkUnbookmarkButton}
+        {postLikeUnlikeButton}
       </div>
 
       {/* User's Post Options */}
@@ -93,6 +170,6 @@ function PostCard({ postData }) {
       )}
     </div>
   );
-}
+});
 
 export default PostCard;

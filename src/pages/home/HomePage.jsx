@@ -9,15 +9,15 @@ import {
 import CreateEditPost from "../../components/post/CreateEditPost";
 import { SORT_TYPES } from "../../utils/constant";
 import { useSelector } from "react-redux";
-import { BeatLoader } from "react-spinners";
 import PostCard from "../../components/post/PostCard";
-import { Fragment } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import useDocumentTitle from "../../hooks/useDocumentTitle";
+import PostSkeleton from "../../components/post/PostSkeleton";
+import FlipMove from "react-flip-move";
 
 function HomePage() {
   useDocumentTitle("Twitify");
-  const { allPosts, isLoading } = useSelector((state) => state.posts);
+  const { allPosts, initialLoading } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
   const [sortType, setSortType] = useState(SORT_TYPES.LATEST);
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
@@ -64,16 +64,16 @@ function HomePage() {
     });
   }
 
-  const sortedPostsMapped = isLoading ? (
+  const sortedPostsMapped = initialLoading ? (
     <div className="flex justify-center p-4">
-      <BeatLoader color="#2f9fa6" />
+      <PostSkeleton />
     </div>
   ) : sortedPosts?.length ? (
-    sortedPosts.map((post) => (
-      <Fragment key={post._id}>
-        <PostCard postData={post} />
-      </Fragment>
-    ))
+    <FlipMove>
+      {sortedPosts.map((post) => (
+        <PostCard postData={post} key={post._id} />
+      ))}
+    </FlipMove>
   ) : (
     <p className="text-center p-4 font-semibold">
       Follow users to see their posts here!

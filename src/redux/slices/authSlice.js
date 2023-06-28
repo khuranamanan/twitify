@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { logInService, signUpService } from "../../services/auth/authServices";
+import {
+  bookmarkPostService,
+  logInService,
+  removeBookmarkPostService,
+  signUpService,
+} from "../../services/auth/authServices";
 
 const tokenFromLocalStorage = JSON.parse(
   localStorage.getItem("loginData")
@@ -41,6 +46,32 @@ export const handleSignUp = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log("error from handleSignUp", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const bookmarkPost = createAsyncThunk(
+  "auth/bookmarkPost",
+  async function ({ postID, token }, thunkAPI) {
+    try {
+      const response = await bookmarkPostService(postID, token);
+      return response.data;
+    } catch (err) {
+      console.log("error from bookmarkPost", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const removeBookmarkPost = createAsyncThunk(
+  "auth/removeBookmarkPost",
+  async function ({ postID, token }, thunkAPI) {
+    try {
+      const response = await removeBookmarkPostService(postID, token);
+      return response.data;
+    } catch (err) {
+      console.log("error from removeBookmarkPost", err);
       return thunkAPI.rejectWithValue(err.response.data.errors[0]);
     }
   }
@@ -101,6 +132,20 @@ export const authSlice = createSlice({
     [handleSignUp.rejected]: (state, action) => {
       console.log("thunkAPI handleSignUp error", action.payload);
       state.isLoading = false;
+    },
+
+    [bookmarkPost.fulfilled]: (state, action) => {
+      state.user = { ...state.user, bookmarks: action.payload.bookmarks };
+    },
+    [bookmarkPost.rejected]: (state, action) => {
+      console.log("thunkAPI bookmarkPost error", action.payload);
+    },
+
+    [removeBookmarkPost.fulfilled]: (state, action) => {
+      state.user = { ...state.user, bookmarks: action.payload.bookmarks };
+    },
+    [removeBookmarkPost.rejected]: (state, action) => {
+      console.log("thunkAPI removeBookmarkPost error", action.payload);
     },
   },
 });
