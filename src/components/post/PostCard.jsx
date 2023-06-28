@@ -21,6 +21,7 @@ import { openPostModalForEdit } from "../../redux/slices/modalsSlice";
 import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { bookmarkPost, removeBookmarkPost } from "../../redux/slices/authSlice";
+import { useNavigate } from "react-router";
 
 const PostCard = forwardRef(({ postData }, ref) => {
   const { allUsers } = useSelector((state) => state.allUsers);
@@ -31,6 +32,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
   useClickOutside(cardMenuRef, () => {
     setIsMenuOpen(false);
   });
+  const navigate = useNavigate();
 
   function handleMenuClick() {
     setIsMenuOpen(!isMenuOpen);
@@ -111,15 +113,23 @@ const PostCard = forwardRef(({ postData }, ref) => {
     </button>
   );
 
+  function handleNavigateToProfile(e) {
+    e.stopPropagation();
+    navigate(`/profile/${postData.username}`);
+  }
+
   return (
     <div
       className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center"
       ref={ref}
     >
-      <div className="col-start-1 col-end-2 w-fit">
+      <div
+        className="col-start-1 col-end-2 w-fit cursor-pointer select-none"
+        onClick={handleNavigateToProfile}
+      >
         <ProfileImage
-          userImage={currentPostUser.profileImg}
-          userFirstName={currentPostUser.firstName}
+          userImage={currentPostUser?.profileImg}
+          userFirstName={currentPostUser?.firstName}
         />
       </div>
 
@@ -127,8 +137,11 @@ const PostCard = forwardRef(({ postData }, ref) => {
         {dateAndTime}
       </div>
 
-      <div className="flex flex-col col-start-2 col-end-3 row-start-1 row-end-2">
-        <p className="text-base font-bold sm:text-lg">{`${currentPostUser.firstName} ${currentPostUser.lastName}`}</p>
+      <div
+        className="flex flex-col col-start-2 col-end-3 row-start-1 row-end-2 cursor-pointer select-none"
+        onClick={handleNavigateToProfile}
+      >
+        <p className="text-base font-bold sm:text-lg hover:underline underline-offset-2">{`${currentPostUser?.firstName} ${currentPostUser?.lastName}`}</p>
         <p className="text-xs text-darkGray sm:text-sm">{`@${postData.username}`}</p>
       </div>
 

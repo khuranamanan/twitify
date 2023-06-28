@@ -15,3 +15,19 @@ export function followAUserService(followUserID, token) {
     }
   );
 }
+
+export function unfollowAUserService(followUserID, token) {
+  return axios.post(
+    `/api/users/unfollow/${followUserID}`,
+    {},
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+}
+
+export function getUserByUsernameService(username) {
+  return axios.get(`/api/users/${username}`);
+}

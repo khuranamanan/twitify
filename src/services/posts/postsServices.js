@@ -59,3 +59,7 @@ export function unlikePostService(postId, token) {
     }
   );
 }
+
+export function getUserPostsByUsernameSercive(username) {
+  return axios.get(`/api/posts/user/${username}`);
+}
