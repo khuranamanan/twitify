@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  editUserProfileService,
   followAUserService,
   getAllUsersService,
   getUserByUsernameService,
@@ -56,6 +57,21 @@ export const getProfilePageUser = createAsyncThunk(
       return response.data;
     } catch (err) {
       console.log("error from getProfilePageUser", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
+export const editUserProfile = createAsyncThunk(
+  "allUsers/editUserProfile",
+  async function ({ userData, token }, thunkAPI) {
+    try {
+      const response = await editUserProfileService(userData, token);
+      console.log("res", response);
+      thunkAPI.dispatch(updateUserObj({ newUserObj: response.data.user }));
+      return response.data;
+    } catch (err) {
+      console.log("error from editUserProfile", err);
       return thunkAPI.rejectWithValue(err.response.data.errors[0]);
     }
   }
@@ -141,6 +157,22 @@ export const allUsersSlice = createSlice({
     [getProfilePageUser.rejected]: (state, payload) => {
       console.log("promise Rejected from getProfilePageUser", payload);
       state.profilePageUserStatus = "rejected";
+    },
+
+    [editUserProfile.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editUserProfile.fulfilled]: (state, action) => {
+      state.allUsers = [...state.allUsers].map((twitifyUser) =>
+        twitifyUser._id === action.payload.user._id
+          ? action.payload.user
+          : twitifyUser
+      );
+      state.isLoading = false;
+    },
+    [editUserProfile.rejected]: (state, payload) => {
+      console.log("promise Rejected from editUserProfile", payload);
+      state.isLoading = false;
     },
   },
 });

@@ -94,7 +94,7 @@ function ProfilePage() {
           {/* Cover */}
           <div className="h-32 object-cover overflow-hidden sm:h-48">
             <img
-              src={defaultCoverImg}
+              src={profilePageUser?.coverImg || defaultCoverImg}
               alt="Cover"
               className="w-full h-full object-cover"
             />

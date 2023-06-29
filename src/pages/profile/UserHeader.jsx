@@ -3,6 +3,8 @@ import { UrlIcon } from "../../assets/icons";
 import defaultProfileImg from "../../assets/defaultProfileImg.png";
 import { useDispatch, useSelector } from "react-redux";
 import { followAUser, unfollowAUser } from "../../redux/slices/allUsersSlice";
+import { useState } from "react";
+import EditProfileModal from "./components/EditProfileModal";
 
 function UserHeader({
   profilePageUser,
@@ -11,6 +13,7 @@ function UserHeader({
 }) {
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  const [editProfileModal, setEditProfileModal] = useState(false);
 
   function handleFollow() {
     dispatch(followAUser({ followUserID: profilePageUser._id, token: token }));
@@ -22,10 +25,17 @@ function UserHeader({
     );
   }
 
+  function handleEditProfileBtnClick() {
+    setEditProfileModal(true);
+  }
+
   function renderCTAButton() {
     if (isThisUsersProfilePage) {
       return (
-        <button className="text-lg font-semibold rounded-full px-4 py-1 text-white border border-darkerGray hover:opacity-90">
+        <button
+          className="text-lg font-semibold rounded-full px-4 py-1 text-white border border-darkerGray hover:opacity-90"
+          onClick={handleEditProfileBtnClick}
+        >
           Edit Profile
         </button>
       );
@@ -94,6 +104,10 @@ function UserHeader({
           <span className="text-darkGray">Followers</span>
         </p>
       </div>
+
+      {editProfileModal && (
+        <EditProfileModal onClose={() => setEditProfileModal(false)} />
+      )}
     </div>
   );
 }

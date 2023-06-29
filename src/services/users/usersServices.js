@@ -31,3 +31,15 @@ export function unfollowAUserService(followUserID, token) {
 export function getUserByUsernameService(username) {
   return axios.get(`/api/users/${username}`);
 }
+
+export function editUserProfileService(userObj, token) {
+  return axios.post(
+    "/api/users/edit",
+    { userData: userObj },
+    {
+      headers: {
+        authorization: token,
+      },
+    }
+  );
+}
