@@ -67,7 +67,7 @@ export const editUserProfile = createAsyncThunk(
   async function ({ userData, token }, thunkAPI) {
     try {
       const response = await editUserProfileService(userData, token);
-      console.log("res", response);
+
       thunkAPI.dispatch(updateUserObj({ newUserObj: response.data.user }));
       return response.data;
     } catch (err) {

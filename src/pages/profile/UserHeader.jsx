@@ -67,7 +67,7 @@ function UserHeader({
           <img
             src={profilePageUser.profileImg || defaultProfileImg}
             alt={profilePageUser.firstName}
-            className="bg-white border-4 border-black rounded-full object-cover"
+            className="bg-white border-4 border-black rounded-full aspect-square object-cover"
           />
         </div>
         {renderCTAButton()}
