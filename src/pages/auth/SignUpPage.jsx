@@ -27,15 +27,33 @@ function SignUpPage() {
 
   function handleSignUpFormSubmit(e) {
     e.preventDefault();
+
+    //Username validation
+    if (!signUpFormData.username.trim()) {
+      setFormInputError("Error: Please enter a username.");
+      return;
+    } else if (signUpFormData.username.length < 3) {
+      setFormInputError(
+        "Error: Username should be at least 3 characters long."
+      );
+      return;
+    } else if (!/^[a-zA-Z0-9_]+$/.test(signUpFormData.username)) {
+      setFormInputError(
+        "Error: Username can only contain alphanumeric characters and underscores."
+      );
+      return;
+    }
+
+    //Password Validation
     if (
-      !signUpFormData.firstName.trim() ||
-      !signUpFormData.lastName.trim() ||
-      !signUpFormData.username.trim() ||
       !signUpFormData.password.trim() ||
       !signUpFormData.confirmPassword.trim()
     ) {
+      setFormInputError("Error: Please enter a password and confirm it.");
+      return;
+    } else if (signUpFormData.password.length < 8) {
       setFormInputError(
-        "Error: Incomplete Form Submission. Please fill in all required fields."
+        "Error: Password should be at least 8 characters long."
       );
       return;
     } else if (signUpFormData.password !== signUpFormData.confirmPassword) {
@@ -44,6 +62,18 @@ function SignUpPage() {
       );
       return;
     }
+
+    if (
+      !signUpFormData.firstName.trim() ||
+      !signUpFormData.lastName.trim() ||
+      !signUpFormData.username.trim()
+    ) {
+      setFormInputError(
+        "Error: Incomplete Form Submission. Please fill in all required fields."
+      );
+      return;
+    }
+
     dispatch(
       handleSignUp({
         username: signUpFormData.username.trim(),
