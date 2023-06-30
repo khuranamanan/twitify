@@ -4,6 +4,7 @@ import {
   deleteUsersPostService,
   editPostService,
   getAllPostsService,
+  getUserPostsByUsernameSercive,
   likePostService,
   unlikePostService,
 } from "../../services/posts/postsServices";
@@ -12,6 +13,8 @@ const initialState = {
   allPosts: [],
   isLoading: false,
   initialLoading: false,
+  profilePageUserPosts: [],
+  profilePageUserPostsStatus: null,
 };
 
 export const getAllPosts = createAsyncThunk(
@@ -92,6 +95,19 @@ export const unlikePost = createAsyncThunk(
   }
 );
 
+export const getProfilePageUserPosts = createAsyncThunk(
+  "posts/getProfilePageUserPosts",
+  async function (username, thunkAPI) {
+    try {
+      const response = await getUserPostsByUsernameSercive(username);
+      return response.data;
+    } catch (err) {
+      console.log("Error from getProfilePageUserPosts", err);
+      return thunkAPI.rejectWithValue(err.response.data.errors[0]);
+    }
+  }
+);
+
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
@@ -160,6 +176,18 @@ export const postsSlice = createSlice({
     },
     [unlikePost.rejected]: (state, payload) => {
       console.log("promise Rejected from unlikePost", payload);
+    },
+
+    [getProfilePageUserPosts.pending]: (state) => {
+      state.profilePageUserPostsStatus = "pending";
+    },
+    [getProfilePageUserPosts.fulfilled]: (state, action) => {
+      state.profilePageUserPosts = action.payload.posts;
+      state.profilePageUserPostsStatus = "fulfilled";
+    },
+    [getProfilePageUserPosts.rejected]: (state, payload) => {
+      console.log("promise Rejected from getProfilePageUserPosts", payload);
+      state.profilePageUserPostsStatus = "rejected";
     },
   },
 });

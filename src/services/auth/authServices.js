@@ -15,7 +15,7 @@ export function signUpService(username, password, firstName, lastName) {
 
 export function bookmarkPostService(postId, token) {
   return axios.post(
-    `api/users/bookmark/${postId}`,
+    `/api/users/bookmark/${postId}`,
     {},
     {
       headers: {
@@ -27,7 +27,7 @@ export function bookmarkPostService(postId, token) {
 
 export function removeBookmarkPostService(postId, token) {
   return axios.post(
-    `api/users/remove-bookmark/${postId}`,
+    `/api/users/remove-bookmark/${postId}`,
     {},
     {
       headers: {
