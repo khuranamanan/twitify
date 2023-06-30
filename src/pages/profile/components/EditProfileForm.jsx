@@ -145,7 +145,7 @@ function EditProfileForm({ onClose }) {
         </div>
         <div className="flex justify-between items-center gap-3">
           <label className="font-medium mb-2">Profile Image:</label>
-          <div className="flex items-center gap-2 flex-wrap">
+          <div className="flex items-center gap-2 flex-wrap justify-end">
             {AVATAR_OPTIONS.map((avatar, index) => (
               <div
                 key={index}
