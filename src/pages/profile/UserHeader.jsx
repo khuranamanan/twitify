@@ -63,11 +63,11 @@ function UserHeader({
   return (
     <div className="flex flex-col gap-2 justify-center p-4 border-b border-darkerGray">
       <div className="relative flex items-center justify-end gap-4">
-        <div className="mb-3 absolute bottom-0 left-0 w-24 h-24">
+        <div className="mb-3 absolute bottom-0 left-0 w-24 h-24 aspect-square">
           <img
             src={profilePageUser.profileImg || defaultProfileImg}
             alt={profilePageUser.firstName}
-            className="bg-white border-4 border-black rounded-full aspect-square object-cover"
+            className="bg-white border-4 border-black rounded-full w-full h-full aspect-square object-cover"
           />
         </div>
         {renderCTAButton()}
