@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "react-toastify/dist/ReactToastify.css";
 import App from "./App";
 import { makeServer } from "./server";
 import { Provider } from "react-redux";

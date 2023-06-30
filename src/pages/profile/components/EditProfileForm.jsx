@@ -5,6 +5,7 @@ import { editUserProfile } from "../../../redux/slices/allUsersSlice";
 import defaultProfileImg from "../../../assets/defaultProfileImg.png";
 import defaultCoverImg from "../../../assets/defaultCoverImg.jpg";
 import { UploadIcon } from "../../../assets/icons";
+import { toast } from "react-toastify";
 
 function EditProfileForm({ onClose }) {
   const { user, token } = useSelector((state) => state.auth);
@@ -26,7 +27,7 @@ function EditProfileForm({ onClose }) {
     if (!image) return;
 
     if (Math.round(image.size / 1024000) > 2) {
-      console.log("File size should be less than 2MB");
+      toast.error("File size should be less than 2MB");
       return;
     }
 
@@ -63,9 +64,11 @@ function EditProfileForm({ onClose }) {
           coverImg: data.secure_url || "",
         }));
       }
+
+      toast.success("Image Uploaded");
     } catch (error) {
       console.error(error);
-      // toast.error("Image Uploading failed");
+      toast.error("Image Uploading failed");
     } finally {
       if (imageType === "profileImg") {
         setProfileImageUploading(false);

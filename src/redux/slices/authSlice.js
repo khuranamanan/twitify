@@ -5,6 +5,7 @@ import {
   removeBookmarkPostService,
   signUpService,
 } from "../../services/auth/authServices";
+import { toast } from "react-toastify";
 
 const tokenFromLocalStorage = JSON.parse(
   localStorage.getItem("loginData")
@@ -86,6 +87,7 @@ export const authSlice = createSlice({
       state.token = null;
       state.user = null;
       state.isLoggedIn = false;
+      toast.success("Logged Out");
     },
     updateUserObj: (state, action) => {
       state.user = action.payload.newUserObj;
@@ -100,6 +102,8 @@ export const authSlice = createSlice({
       state.user = action.payload.foundUser;
       state.isLoggedIn = true;
       state.isLoading = false;
+      toast.success("Logged In");
+
       localStorage.setItem(
         "loginData",
         JSON.stringify({
@@ -111,6 +115,7 @@ export const authSlice = createSlice({
     [handleLogIn.rejected]: (state, action) => {
       console.log("thunkAPI handleLogIn error", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [handleSignUp.pending]: (state) => {
@@ -121,6 +126,8 @@ export const authSlice = createSlice({
       state.user = action.payload.createdUser;
       state.isLoggedIn = true;
       state.isLoading = false;
+      toast.success("Logged In");
+
       localStorage.setItem(
         "loginData",
         JSON.stringify({
@@ -132,20 +139,25 @@ export const authSlice = createSlice({
     [handleSignUp.rejected]: (state, action) => {
       console.log("thunkAPI handleSignUp error", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [bookmarkPost.fulfilled]: (state, action) => {
       state.user = { ...state.user, bookmarks: action.payload.bookmarks };
+      toast.success("Post Bookmarked");
     },
     [bookmarkPost.rejected]: (state, action) => {
       console.log("thunkAPI bookmarkPost error", action.payload);
+      toast.error(action.payload);
     },
 
     [removeBookmarkPost.fulfilled]: (state, action) => {
       state.user = { ...state.user, bookmarks: action.payload.bookmarks };
+      toast.success("Post Removed from Bookmark");
     },
     [removeBookmarkPost.rejected]: (state, action) => {
       console.log("thunkAPI removeBookmarkPost error", action.payload);
+      toast.error(action.payload);
     },
   },
 });

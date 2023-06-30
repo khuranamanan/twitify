@@ -8,6 +8,7 @@ import {
   likePostService,
   unlikePostService,
 } from "../../services/posts/postsServices";
+import { toast } from "react-toastify";
 
 const initialState = {
   allPosts: [],
@@ -134,10 +135,11 @@ export const postsSlice = createSlice({
     [createUserPost.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
       state.isLoading = false;
+      toast.success("Posted");
     },
-    [createUserPost.rejected]: (state, payload) => {
-      console.log("promise Rejected from createUserPost", payload);
+    [createUserPost.rejected]: (state, action) => {
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [deleteUserPost.pending]: (state) => {
@@ -146,10 +148,12 @@ export const postsSlice = createSlice({
     [deleteUserPost.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
       state.isLoading = false;
+      toast.success("Post Deleted");
     },
-    [deleteUserPost.rejected]: (state, payload) => {
-      console.log("promise Rejected from deleteUserPost", payload);
+    [deleteUserPost.rejected]: (state, action) => {
+      console.log("promise Rejected from deleteUserPost", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [editUserPost.pending]: (state) => {
@@ -158,24 +162,25 @@ export const postsSlice = createSlice({
     [editUserPost.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
       state.isLoading = false;
+      toast.success("Post Edited");
     },
-    [editUserPost.rejected]: (state, payload) => {
-      console.log("promise Rejected from editUserPost", payload);
+    [editUserPost.rejected]: (state, action) => {
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [likePost.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
     },
-    [likePost.rejected]: (state, payload) => {
-      console.log("promise Rejected from likePost", payload);
+    [likePost.rejected]: (state, action) => {
+      toast.error(action.payload);
     },
 
     [unlikePost.fulfilled]: (state, action) => {
       state.allPosts = action.payload.posts;
     },
-    [unlikePost.rejected]: (state, payload) => {
-      console.log("promise Rejected from unlikePost", payload);
+    [unlikePost.rejected]: (state, action) => {
+      toast.error(action.payload);
     },
 
     [getProfilePageUserPosts.pending]: (state) => {
@@ -185,8 +190,11 @@ export const postsSlice = createSlice({
       state.profilePageUserPosts = action.payload.posts;
       state.profilePageUserPostsStatus = "fulfilled";
     },
-    [getProfilePageUserPosts.rejected]: (state, payload) => {
-      console.log("promise Rejected from getProfilePageUserPosts", payload);
+    [getProfilePageUserPosts.rejected]: (state, action) => {
+      console.log(
+        "promise Rejected from getProfilePageUserPosts",
+        action.payload
+      );
       state.profilePageUserPostsStatus = "rejected";
     },
   },

@@ -7,6 +7,7 @@ import {
   unfollowAUserService,
 } from "../../services/users/usersServices";
 import { updateUserObj } from "./authSlice";
+import { toast } from "react-toastify";
 
 export const getAllUsers = createAsyncThunk(
   "allUsers/getAllUsers",
@@ -118,10 +119,12 @@ export const allUsersSlice = createSlice({
       );
 
       state.isLoading = false;
+      toast.success(`Followed @${action.payload.followUser.username}`);
     },
-    [followAUser.rejected]: (state, payload) => {
-      console.log("promise Rejected from followAUser", payload);
+    [followAUser.rejected]: (state, action) => {
+      console.log("promise Rejected from followAUser", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [unfollowAUser.pending]: (state) => {
@@ -141,10 +144,12 @@ export const allUsersSlice = createSlice({
       );
 
       state.isLoading = false;
+      toast.success(`Unfollowed @${action.payload.followUser.username}`);
     },
-    [unfollowAUser.rejected]: (state, payload) => {
-      console.log("promise Rejected from unfollowAUser", payload);
+    [unfollowAUser.rejected]: (state, action) => {
+      console.log("promise Rejected from unfollowAUser", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
 
     [getProfilePageUser.pending]: (state) => {
@@ -154,8 +159,8 @@ export const allUsersSlice = createSlice({
       state.profilePageUser = action.payload.user;
       state.profilePageUserStatus = "fulfilled";
     },
-    [getProfilePageUser.rejected]: (state, payload) => {
-      console.log("promise Rejected from getProfilePageUser", payload);
+    [getProfilePageUser.rejected]: (state, action) => {
+      console.log("promise Rejected from getProfilePageUser", action.payload);
       state.profilePageUserStatus = "rejected";
     },
 
@@ -169,10 +174,12 @@ export const allUsersSlice = createSlice({
           : twitifyUser
       );
       state.isLoading = false;
+      toast.success("Profile Updated");
     },
-    [editUserProfile.rejected]: (state, payload) => {
-      console.log("promise Rejected from editUserProfile", payload);
+    [editUserProfile.rejected]: (state, action) => {
+      console.log("promise Rejected from editUserProfile", action.payload);
       state.isLoading = false;
+      toast.error(action.payload);
     },
   },
 });
