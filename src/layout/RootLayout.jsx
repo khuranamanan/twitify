@@ -13,6 +13,8 @@ function RootLayout() {
 
   return (
     <div className="relative max-w-screen-xl mx-auto h-full grid sm:grid-cols-[auto_minmax(200px,_1fr)_auto]">
+      <PostModal />
+
       <header className="fixed bottom-0 left-0 right-0 z-30 border-solid border-t border-darkerGray sm:sticky sm:top-0 sm:bottom-0 sm:h-screen sm:overflow-y-scroll sm:border-r sm:border-t-0 no-scrollbar">
         <SideNavBar />
       </header>
@@ -24,8 +26,6 @@ function RootLayout() {
       <aside className="hidden h-screen lg:block no-scrollbar sm:sticky sm:top-0 sm:bottom-0 sm:overflow-y-scroll">
         <Widgets />
       </aside>
-
-      <PostModal />
     </div>
   );
 }

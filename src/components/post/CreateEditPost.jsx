@@ -25,7 +25,7 @@ function CreateEditPost({ fromModal = false }) {
   const characterCount = newPost.content.length;
   const isOverCharacterLimit = characterCount > POST_CHAR_LIMIT;
 
-  async function handleMediaChange(event) {
+  function handleMediaChange(event) {
     const mediaFile = event.target.files[0];
     if (!mediaFile) return;
 
@@ -56,30 +56,31 @@ function CreateEditPost({ fromModal = false }) {
 
     setMediaUploading(true);
 
-    try {
-      const response = await fetch(
-        mediaFile.type.startsWith("image")
-          ? "https://api.cloudinary.com/v1_1/dsuxc3pwu/image/upload"
-          : "https://api.cloudinary.com/v1_1/dsuxc3pwu/video/upload",
-        requestOptions
-      );
-      const data = await response.json();
+    fetch(
+      mediaFile.type.startsWith("image")
+        ? "https://api.cloudinary.com/v1_1/dsuxc3pwu/image/upload"
+        : "https://api.cloudinary.com/v1_1/dsuxc3pwu/video/upload",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setNewPost({
+          ...newPost,
+          media: {
+            url: data.secure_url,
+            type: mediaFile.type.startsWith("image") ? "image" : "video",
+          },
+        });
 
-      setNewPost({
-        ...newPost,
-        media: {
-          url: data.secure_url,
-          type: mediaFile.type.startsWith("image") ? "image" : "video",
-        },
+        toast.success("Media Uploaded");
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error("Media Uploading failed");
+      })
+      .finally(() => {
+        setMediaUploading(false);
       });
-
-      toast.success("Media Uploaded");
-    } catch (error) {
-      console.error(error);
-      toast.error("Media Uploading failed");
-    } finally {
-      setMediaUploading(false);
-    }
   }
 
   function handleMediaDelete() {
@@ -116,49 +117,50 @@ function CreateEditPost({ fromModal = false }) {
   }, [postModal]);
 
   return (
-    <div className="flex flex-col gap-2 p-4 border-y border-solid border-darkerGray">
-      <div className="flex gap-2">
+    <div className=" gap-2 p-4 border-y border-solid border-darkerGray grid grid-rows-[auto_auto] grid-cols-[auto_1fr]">
+      <div className="flex gap-2 row-start-1 row-end-3 col-start-1 col-end-2">
         <ProfileImage
           userImage={user.profileImg}
           userFirstName={user.userFirstName}
         />
-        <div className="flex flex-col gap-3 grow justify-center items-center">
-          <textarea
-            className={`flex-grow py-2 px-3 focus:outline-none text-white bg-inherit ${
-              fromModal ? "h-40" : "h-16 sm:h-24"
-            } border-none resize-none`}
-            placeholder="What's happening?!"
-            value={newPost.content}
-            onChange={handleInputChange}
-          />
-          {newPost.media && (
-            <div className="relative overflow-hidden flex justify-center items-center max-w-xs aspect-video object-contain rounded-lg bg-darkerGray">
-              {newPost.media.type === "image" ? (
-                <img
-                  src={newPost.media.url}
-                  alt="Post media"
-                  className="h-full object-contain"
-                />
-              ) : (
-                <video controls>
-                  <source
-                    src={newPost.media.url}
-                    type="video/mp4"
-                    className="h-full"
-                  />
-                </video>
-              )}
-              <button
-                className="bg-black rounded-full absolute top-2 right-2 "
-                onClick={handleMediaDelete}
-              >
-                <DeleteIcon />
-              </button>
-            </div>
-          )}
-        </div>
       </div>
-      <div className="flex justify-between gap-4 items-center">
+      <div className="flex flex-col gap-2 grow justify-center items-center">
+        <textarea
+          className={`flex-grow py-2 px-3 focus:outline-none text-white bg-inherit ${
+            fromModal ? "h-40" : "h-16 sm:h-24"
+          } border-none resize-none`}
+          placeholder="What's happening?!"
+          value={newPost.content}
+          onChange={handleInputChange}
+        />
+        {newPost.media && (
+          <div className="relative overflow-hidden flex justify-center items-center max-w-xs aspect-video object-contain rounded-lg bg-darkerGray">
+            {newPost.media.type === "image" ? (
+              <img
+                src={newPost.media.url}
+                alt="Post media"
+                className="h-full object-contain"
+              />
+            ) : (
+              <video controls>
+                <source
+                  src={newPost.media.url}
+                  type="video/mp4"
+                  className="h-full"
+                />
+              </video>
+            )}
+            <button
+              className="bg-black rounded-full absolute top-2 right-2 "
+              onClick={handleMediaDelete}
+            >
+              <DeleteIcon />
+            </button>
+          </div>
+        )}
+      </div>
+
+      <div className="flex justify-between gap-4 items-center py-2 px-3">
         <div>
           <label htmlFor="media" className="cursor-pointer text-cyan">
             <AddMediaIcon />

@@ -120,7 +120,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
 
   return (
     <div
-      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-4 gap-y-2 justify-start items-center"
+      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-3 gap-y-2 justify-start items-center"
       ref={ref}
     >
       <div
@@ -145,7 +145,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
         <p className="text-xs text-darkGray sm:text-sm">{`@${postData.username}`}</p>
       </div>
 
-      <div className="col-start-2 col-end-4 row-start-2 row-end-3 flex flex-col gap-3">
+      <div className="col-start-2 col-end-4 row-start-2 row-end-3 flex flex-col gap-2">
         <p className="text-sm sm:text-base">{postData.content}</p>
         {postData.media && (
           <div className="overflow-hidden flex justify-center items-center aspect-video w-full object-contain rounded-lg ">
