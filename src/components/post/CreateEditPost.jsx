@@ -4,8 +4,11 @@ import ProfileImage from "../ProfileImage";
 import { createUserPost, editUserPost } from "../../redux/slices/postsSlice";
 import { closePostModal } from "../../redux/slices/modalsSlice";
 import { POST_CHAR_LIMIT } from "../../utils/constant";
-import { AddMediaIcon, DeleteIcon } from "../../assets/icons";
+import { AddMediaIcon, DeleteIcon, EmojiIcon } from "../../assets/icons";
 import { toast } from "react-toastify";
+import EmojiPicker from "emoji-picker-react";
+import { useRef } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
 
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
@@ -15,7 +18,10 @@ function CreateEditPost({ fromModal = false }) {
     media: editPostContent && fromModal ? editPostContent.media : null,
   });
   const [mediaUploading, setMediaUploading] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const dispatch = useDispatch();
+  const emojiRef = useRef();
+  useClickOutside(emojiRef, () => setShowEmojiPicker(false));
 
   function handleInputChange(event) {
     const inputContent = event.target.value;
@@ -109,6 +115,17 @@ function CreateEditPost({ fromModal = false }) {
     }
   }
 
+  function handleEmojiPickerToggle() {
+    setShowEmojiPicker(!showEmojiPicker);
+  }
+
+  function handleEmojiClick(emoji) {
+    setNewPost((prevPost) => ({
+      ...prevPost,
+      content: prevPost.content + emoji.emoji,
+    }));
+  }
+
   useEffect(() => {
     if (!postModal && fromModal) {
       setNewPost({ media: null, content: "" });
@@ -161,18 +178,46 @@ function CreateEditPost({ fromModal = false }) {
       </div>
 
       <div className="flex justify-between gap-4 items-center py-2 px-3">
-        <div>
-          <label htmlFor="media" className="cursor-pointer text-cyan">
-            <AddMediaIcon />
-          </label>
-          <input
-            type="file"
-            id="media"
-            className="hidden"
-            accept="image/*, video/*"
-            onChange={handleMediaChange}
-            disabled={mediaUploading}
-          />
+        <div className="flex gap-2">
+          <div>
+            <label htmlFor="media" className="cursor-pointer text-cyan">
+              <AddMediaIcon />
+            </label>
+            <input
+              type="file"
+              id="media"
+              className="hidden"
+              accept="image/*, video/*"
+              onChange={handleMediaChange}
+              disabled={mediaUploading}
+            />
+          </div>
+          <div className="relative">
+            <button
+              className="cursor-pointer text-cyan"
+              onClick={handleEmojiPickerToggle}
+              ref={emojiRef}
+            >
+              <EmojiIcon />
+            </button>
+            <span className="absolute top-[100%] -left-20  z-40">
+              {showEmojiPicker && (
+                <EmojiPicker
+                  onEmojiClick={handleEmojiClick}
+                  theme="dark"
+                  searchDisabled
+                  lazyLoadEmojis
+                  skinTonesDisabled
+                  suggestedEmojisMode="recent"
+                  previewConfig={{
+                    showPreview: false,
+                  }}
+                  height={fromModal ? "200px" : "40vh"}
+                  width={"300px"}
+                />
+              )}
+            </span>
+          </div>
         </div>
 
         <div className="flex gap-4 items-center">
