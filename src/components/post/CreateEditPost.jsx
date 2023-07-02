@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import EmojiPicker from "emoji-picker-react";
 import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
+import { Tooltip } from "react-tooltip";
 
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
@@ -180,7 +181,13 @@ function CreateEditPost({ fromModal = false }) {
       <div className="flex justify-between gap-4 items-center py-2 px-3">
         <div className="flex gap-2">
           <div>
-            <label htmlFor="media" className="cursor-pointer text-cyan">
+            <label
+              htmlFor="media"
+              className="cursor-pointer text-cyan"
+              data-tooltip-id="media"
+              data-tooltip-content="Media"
+              data-tooltip-place="bottom"
+            >
               <AddMediaIcon />
             </label>
             <input
@@ -191,15 +198,20 @@ function CreateEditPost({ fromModal = false }) {
               onChange={handleMediaChange}
               disabled={mediaUploading}
             />
+            <Tooltip id="media" style={{ padding: "3px" }} />
           </div>
           <div className="relative">
             <button
               className="cursor-pointer text-cyan"
               onClick={handleEmojiPickerToggle}
               ref={emojiRef}
+              data-tooltip-id="emoji"
+              data-tooltip-content="Emoji"
+              data-tooltip-place="bottom"
             >
               <EmojiIcon />
             </button>
+            <Tooltip id="emoji" style={{ padding: "3px" }} />
             <span className="absolute top-[100%] -left-20  z-40">
               {showEmojiPicker && (
                 <EmojiPicker
