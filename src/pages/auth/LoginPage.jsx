@@ -114,8 +114,8 @@ function LoginPage() {
               type="submit"
               onClick={() =>
                 setLogInFormData({
-                  username: "adarshbalika",
-                  password: "adarshBalika123",
+                  username: "manankhurana",
+                  password: "manan",
                 })
               }
             >
