@@ -73,14 +73,22 @@ function ProfilePage() {
   return (
     <div className="mb-[64px] sm:mb-4">
       {/* Top Column Heading */}
-      <div className="bg-black flex items-center gap-4 font-inter px-4 py-3 border-b border-solid border-darkerGray text-xl font-semibold">
+      <div className="bg-black flex items-center gap-4 font-inter px-2 py-3 border-b border-solid border-darkerGray text-xl font-semibold h-16">
         <button
-          className="cursor-pointer text-base pr-2 border-r border-darkerGray"
+          className="cursor-pointer text-sm p-2 rounded-full hover:bg-transparentWhite"
           onClick={() => navigate(-1)}
         >
           <ArrowLeftIcon />
         </button>
-        <h1>{`@${username}`}</h1>
+
+        {profilePageUser?.username === username && (
+          <div>
+            <h3 className="text-xl">{`${profilePageUser.firstName} ${profilePageUser.lastName}`}</h3>
+            <p className="text-xs font-light tracking-wider text-darkGray">{`${
+              profilePageUserPosts.length
+            } Post${profilePageUserPosts.length > 1 ? "s" : ""}`}</p>
+          </div>
+        )}
       </div>
 
       {/* Loader */}
