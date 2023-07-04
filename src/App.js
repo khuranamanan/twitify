@@ -18,21 +18,23 @@ function App() {
   }, [dispatch, isLoggedIn]);
 
   return (
-    <div className="bg-black h-dvh-screen text-white">
-      <ToastContainer
-        transition={Slide}
-        position="top-center"
-        autoClose={2000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-      <RouterProvider router={routes} />
+    <div className="dark">
+      <div className="bg-white dark:bg-black dark:text-white h-dvh-screen text-black">
+        <ToastContainer
+          transition={Slide}
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <RouterProvider router={routes} />
+      </div>
     </div>
   );
 }

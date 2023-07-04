@@ -35,7 +35,7 @@ function BookmarksPage() {
 
   return (
     <div className="mb-[64px] sm:mb-4">
-      <div className="bg-black font-inter px-4 py-3 border-b border-solid border-darkerGray text-xl font-bold">
+      <div className="bg-white dark:bg-black font-inter px-4 py-3 border-b border-solid border-darkGray dark:border-darkerGray text-xl font-bold">
         <h1>Bookmarks</h1>
       </div>
       {bookmarksMapped}

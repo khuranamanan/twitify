@@ -27,7 +27,7 @@ function SideNavBar() {
   }
 
   return (
-    <div className="relative bg-black z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
+    <div className="relative dark:bg-black z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
       <div className="hidden px-3 sm:block">
         <TwitifyLogoIcon />
       </div>
@@ -59,7 +59,7 @@ function SideNavBar() {
       </nav>
 
       <button
-        className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105"
+        className="mb-4 flex gap-1 justify-center items-center absolute top-[-105%] right-2 btn uppercase font-bold bg-cyan lg:w-full sm:static hover:brightness-105 text-white"
         onClick={handlePostBtnClick}
       >
         <span className="lg:hidden">
@@ -69,7 +69,7 @@ function SideNavBar() {
       </button>
 
       <div
-        className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer"
+        className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentBlack2 dark:hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer"
         onClick={() => navigate(`/profile/${user.username}`)}
       >
         <ProfileImage
@@ -79,7 +79,7 @@ function SideNavBar() {
 
         <div>
           <p>{`${user.firstName} ${user.lastName}`}</p>
-          <p className="text-xs text-darkGray">{`@${user.username}`}</p>
+          <p className="text-xs text-darkerGray dark:text-darkGray">{`@${user.username}`}</p>
         </div>
       </div>
     </div>

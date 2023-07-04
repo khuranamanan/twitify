@@ -88,7 +88,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
       }}
       className={`relative p-2 ${
         isLiked && "text-rose-600"
-      }  hover:bg-transparentWhite hover:text-rose-600 rounded-full transition`}
+      }  hover:bg-transparentBlack2 dark:hover:bg-transparentWhite hover:text-rose-600 rounded-full transition`}
     >
       {isLiked ? <HeartFilledIcon /> : <HeartIcon />}{" "}
       <span className="absolute right-[-50%] top-0 bottom-0 p-2">
@@ -101,7 +101,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
     <button
       className={`p-2 ${
         isBookmarked && "text-cyan"
-      }  hover:bg-transparentWhite hover:text-cyan rounded-full transition`}
+      }  hover:bg-transparentBlack2 dark:hover:bg-transparentWhite hover:text-cyan rounded-full transition`}
       onClick={(e) => {
         e.stopPropagation();
         isBookmarked
@@ -120,7 +120,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
 
   return (
     <div
-      className="relative p-4 border-b border-solid border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-3 gap-y-2 justify-start items-center"
+      className="relative p-4 border-b border-solid border-darkGray dark:border-darkerGray grid grid-cols-[auto_auto_1fr] grid-rows-[auto_auto_auto] gap-x-3 gap-y-2 justify-start items-center"
       ref={ref}
     >
       <div
@@ -133,7 +133,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
         />
       </div>
 
-      <div className="row-start-1 row-end-2 col-start-3 col-end-4 self-start text-[0.7rem] text-darkGray mt-2 mr-9 sm:text-xs">
+      <div className="row-start-1 row-end-2 col-start-3 col-end-4 self-start text-[0.7rem] text-darkerGray dark:text-darkGray mt-2 mr-9 sm:text-xs">
         {dateAndTime}
       </div>
 
@@ -142,7 +142,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
         onClick={handleNavigateToProfile}
       >
         <p className="text-base font-bold sm:text-lg hover:underline underline-offset-2">{`${currentPostUser?.firstName} ${currentPostUser?.lastName}`}</p>
-        <p className="text-xs text-darkGray sm:text-sm">{`@${postData.username}`}</p>
+        <p className="text-xs text-darkerGray dark:text-darkGray sm:text-sm">{`@${postData.username}`}</p>
       </div>
 
       <div className="col-start-2 col-end-4 row-start-2 row-end-3 flex flex-col gap-2">
@@ -169,7 +169,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
       </div>
 
       {/* Buttons */}
-      <div className="col-start-2 col-end-4 row-start-3 row-end-4 text-sm text-darkGray flex justify-around">
+      <div className="col-start-2 col-end-4 row-start-3 row-end-4 text-sm text-darkerGray dark:text-darkGray flex justify-around">
         {postBookmarkUnbookmarkButton}
         {postLikeUnlikeButton}
       </div>
@@ -177,7 +177,7 @@ const PostCard = forwardRef(({ postData }, ref) => {
       {/* User's Post Options */}
       {isThisUsersPost && (
         <div
-          className="absolute top-3 right-3 p-1 select-none hover:bg-transparentWhite rounded-full text-darkGray cursor-pointer"
+          className="absolute top-3 right-3 p-1 select-none hover:bg-transparentBlack2 dark:hover:bg-transparentWhite rounded-full text-darkerGray dark:text-darkGray cursor-pointer"
           onClick={handleMenuClick}
           ref={cardMenuRef}
         >
@@ -185,15 +185,15 @@ const PostCard = forwardRef(({ postData }, ref) => {
         </div>
       )}
       {isThisUsersPost && isMenuOpen && (
-        <div className="bg-black absolute top-6 right-12 w-32 border border-solid border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
+        <div className="bg-white dark:bg-black absolute top-6 right-12 w-32 border border-solid border-darkGray dark:border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
           <div
-            className="py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite"
+            className="py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite"
             onClick={handleEditPostBtnClick}
           >
             <EditPostIcon /> Edit Post
           </div>
           <div
-            className="py-2 px-3 text-red-500 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite"
+            className="py-2 px-3 text-red-500 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite"
             onClick={handleDeletePostBtnClick}
           >
             <TrashIcon /> Delete Post

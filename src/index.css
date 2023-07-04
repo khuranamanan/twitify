@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .navlink {
-  @apply flex gap-4 px-3 py-3 rounded-full hover:bg-transparentWhite;
+  @apply flex gap-4 px-3 py-3 rounded-full hover:bg-transparentBlack2 dark:hover:bg-transparentWhite;
 }
 
 .btn {

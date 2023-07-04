@@ -13,7 +13,7 @@ function PostModal() {
         onClick={() => dispatch(closePostModal())}
       >
         <div
-          className="bg-black border-2 border-solid border-darkerGray rounded-xl w-[80%] sm:w-[50%] lg:w-[35rem]"
+          className="bg-white dark:bg-black border-2 border-solid border-darkGray dark:border-darkerGray rounded-xl w-[80%] sm:w-[50%] lg:w-[35rem]"
           onClick={(e) => e.stopPropagation()}
         >
           <CreateEditPost fromModal />

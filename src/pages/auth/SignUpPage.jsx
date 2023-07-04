@@ -116,7 +116,7 @@ function SignUpPage() {
 
   return (
     <div className="min-h-[100dvh] w-full flex justify-center items-center p-3 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-blue-100 via-blue-200 to-cyan">
-      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray">
+      <div className="bg-white dark:bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md">
         <div className="px-3 flex justify-center">
           <TwitifyFullLogo />
         </div>
@@ -125,14 +125,14 @@ function SignUpPage() {
           className="w-full flex flex-col justify-around gap-4 items-center grow"
           onSubmit={handleSignUpFormSubmit}
         >
-          <h1 className="text-white text-3xl font-inter font-bold uppercase">
+          <h1 className="dark:text-white text-3xl font-inter font-bold uppercase">
             Sign Up
           </h1>
           <div className="flex flex-col gap-4 w-full mb-1">
             <div className="flex gap-2">
               <input
                 type="text"
-                className="w-full rounded-md p-2 text-black"
+                className="w-full rounded-md p-2 text-black border border-darkGray"
                 placeholder="First Name"
                 onChange={(e) =>
                   setSignUpFormData((prev) => ({
@@ -144,7 +144,7 @@ function SignUpPage() {
               />
               <input
                 type="text"
-                className="w-full rounded-md p-2 text-black"
+                className="w-full rounded-md p-2 text-black border border-darkGray"
                 placeholder="Last Name"
                 onChange={(e) =>
                   setSignUpFormData((prev) => ({
@@ -158,7 +158,7 @@ function SignUpPage() {
 
             <input
               type="text"
-              className="w-full rounded-md p-2 text-black"
+              className="w-full rounded-md p-2 text-black border border-darkGray"
               placeholder="Username"
               onChange={(e) =>
                 setSignUpFormData((prev) => ({
@@ -171,7 +171,7 @@ function SignUpPage() {
             <div className="flex shrink justify-between gap-2 items-center w-full">
               <input
                 type={showPassword.password ? "text" : "password"}
-                className="rounded-md w-full p-2 text-black"
+                className="rounded-md w-full p-2 text-black border border-darkGray"
                 placeholder="Create Password"
                 onChange={(e) =>
                   setSignUpFormData((prev) => ({
@@ -182,7 +182,7 @@ function SignUpPage() {
                 required
               />
               <div
-                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer"
+                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer border border-darkGray"
                 onClick={() => handleShowPasswordBtnClick("password")}
               >
                 {showPasswordIcon}
@@ -191,7 +191,7 @@ function SignUpPage() {
             <div className="flex shrink justify-between gap-2 items-center w-full">
               <input
                 type={showPassword.confirmPassword ? "text" : "password"}
-                className="rounded-md w-full p-2 text-black"
+                className="rounded-md w-full p-2 text-black border border-darkGray"
                 placeholder="Confirm Password"
                 onChange={(e) =>
                   setSignUpFormData((prev) => ({
@@ -202,7 +202,7 @@ function SignUpPage() {
                 required
               />
               <div
-                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer"
+                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer border border-darkGray"
                 onClick={() => handleShowPasswordBtnClick("confirmPassword")}
               >
                 {showConfirmPasswordIcon}
@@ -211,7 +211,7 @@ function SignUpPage() {
           </div>
 
           <button
-            className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold hover:bg-white"
+            className="bg-black dark:bg-snow text-md uppercase p-2 w-full rounded-full text-snow dark:text-black font-semibold hover:bg-transparentBlack dark:hover:bg-white"
             type="submit"
           >
             Sign Up

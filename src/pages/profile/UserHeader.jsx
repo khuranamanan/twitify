@@ -33,7 +33,7 @@ function UserHeader({
     if (isThisUsersProfilePage) {
       return (
         <button
-          className="text-lg font-semibold rounded-full px-4 py-1 text-white border border-darkerGray hover:opacity-90"
+          className="text-lg font-semibold rounded-full px-4 py-1 text-black dark:text-white border border-darkGray dark:border-darkerGray hover:opacity-90"
           onClick={handleEditProfileBtnClick}
         >
           Edit Profile
@@ -42,7 +42,7 @@ function UserHeader({
     } else if (isUserFollowingThisUser) {
       return (
         <button
-          className="text-lg font-semibold rounded-full px-4 py-1 text-white border border-darkerGray hover:opacity-90"
+          className="text-lg font-semibold rounded-full px-4 py-1 text-black dark:text-white border border-darkGray dark:border-darkerGray hover:opacity-90"
           onClick={handleUnfollow}
         >
           Unfollow
@@ -51,7 +51,7 @@ function UserHeader({
     } else {
       return (
         <button
-          className="bg-snow text-lg font-semibold rounded-full px-4 py-1 text-black border border-snow hover:opacity-90"
+          className="bg-black dark:bg-snow text-lg font-semibold rounded-full px-4 py-1 text-snow dark:text-black border border-black dark:border-snow hover:opacity-90"
           onClick={handleFollow}
         >
           Follow
@@ -61,13 +61,13 @@ function UserHeader({
   }
 
   return (
-    <div className="flex flex-col gap-2 justify-center p-4 border-b border-darkerGray">
+    <div className="flex flex-col gap-2 justify-center p-4 border-b border-darkGray dark:border-darkerGray">
       <div className="relative flex items-center justify-end gap-4">
         <div className="mb-3 absolute bottom-0 left-0 w-24 h-24 aspect-square">
           <img
             src={profilePageUser.profileImg || defaultProfileImg}
             alt={profilePageUser.firstName}
-            className="bg-white border-4 border-black rounded-full w-full h-full aspect-square object-cover"
+            className="bg-white border-4 border-white dark:border-black rounded-full w-full h-full aspect-square object-cover"
           />
         </div>
         {renderCTAButton()}
@@ -76,9 +76,13 @@ function UserHeader({
         <h2 className="text-2xl font-semibold">
           {profilePageUser.firstName} {profilePageUser.lastName}
         </h2>
-        <p className="text-gray">@{profilePageUser.username}</p>
+        <p className="text-darkerGray dark:text-gray">
+          @{profilePageUser.username}
+        </p>
         {profilePageUser.profileBio && (
-          <p className="text-gray mt-2">{profilePageUser.profileBio}</p>
+          <p className="text-darkerGray dark:text-gray mt-2">
+            {profilePageUser.profileBio}
+          </p>
         )}
         {profilePageUser.profileURL && (
           <p className="flex items-center gap-1 mt-2">
@@ -97,11 +101,11 @@ function UserHeader({
       <div className="text-sm flex gap-2">
         <p>
           {profilePageUser.following.length}{" "}
-          <span className="text-darkGray">Following</span>
+          <span className="text-darkerGray dark:text-gray">Following</span>
         </p>
         <p>
           {profilePageUser.followers.length}{" "}
-          <span className="text-darkGray">Followers</span>
+          <span className="text-darkerGray dark:text-gray">Followers</span>
         </p>
       </div>
 

@@ -16,8 +16,8 @@ function WhoToFollow() {
     );
 
   return (
-    <div className="py-4 bg-transparentWhite max-h-[50%] rounded-3xl flex flex-col overflow-hidden">
-      <h2 className="text-white px-4 font-bold text-xl mb-4">Who to Follow</h2>
+    <div className="py-4 bg-transparentBlack2 dark:bg-transparentWhite max-h-[50%] rounded-3xl flex flex-col overflow-hidden">
+      <h2 className="px-4 font-bold text-xl mb-4">Who to Follow</h2>
       <div className="flex flex-col gap-1 grow overflow-y-scroll no-scrollbar">
         {followSuggestionList.map((twitifyUser) => (
           <FollowSuggestionCard
