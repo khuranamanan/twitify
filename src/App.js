@@ -54,7 +54,7 @@ function App() {
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="dark"
+          theme={themeMode}
         />
         <RouterProvider router={routes} />
       </div>

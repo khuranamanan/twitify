@@ -14,6 +14,7 @@ import { Tooltip } from "react-tooltip";
 function CreateEditPost({ fromModal = false }) {
   const { user, token } = useSelector((state) => state.auth);
   const { postModal, editPostContent } = useSelector((state) => state.modals);
+  const themeMode = useSelector((state) => state.theme.mode);
   const [newPost, setNewPost] = useState({
     content: editPostContent && fromModal ? editPostContent.content : "",
     media: editPostContent && fromModal ? editPostContent.media : null,
@@ -216,7 +217,7 @@ function CreateEditPost({ fromModal = false }) {
               {showEmojiPicker && (
                 <EmojiPicker
                   onEmojiClick={handleEmojiClick}
-                  theme="dark"
+                  theme={themeMode}
                   searchDisabled
                   lazyLoadEmojis
                   skinTonesDisabled
