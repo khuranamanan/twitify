@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   BookmarksIcon,
+  EllipsesMenuSmallIcon,
   ExploreIcon,
   HomeIcon,
   LogOutIcon,
@@ -12,11 +13,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleLogOut } from "../../redux/slices/authSlice";
 import ProfileImage from "../ProfileImage";
 import { openPostModal } from "../../redux/slices/modalsSlice";
+import { useRef, useState } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
+import { setThemeMode, updateSystemTheme } from "../../redux/slices/themeSlice";
 
 function SideNavBar() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const themeMode = useSelector((state) => state.theme.mode);
+  const systemPreferenceSelected = useSelector(
+    (state) => state.theme.systemPreferenceSelected
+  );
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
+  const sortThemeRef = useRef();
+  useClickOutside(sortThemeRef, () => {
+    setIsThemeMenuOpen(false);
+  });
+
+  function handleThemeBtnClick(event) {
+    event.stopPropagation();
+    setIsThemeMenuOpen(!isThemeMenuOpen);
+  }
+
+  function handleThemeSelectionClick(event) {
+    event.stopPropagation();
+    const selectedTheme = event.target.getAttribute("data-value");
+    if (selectedTheme === "system") {
+      dispatch(updateSystemTheme());
+    } else {
+      dispatch(setThemeMode(selectedTheme));
+    }
+  }
 
   function handleNavLinkStyle({ isActive }) {
     return `navlink  ${isActive ? "font-extrabold stroke-2" : "stroke-[1.5]"}`;
@@ -27,7 +55,7 @@ function SideNavBar() {
   }
 
   return (
-    <div className="relative dark:bg-black z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
+    <div className="relative bg-white dark:bg-black bg-opacity-95 z-50 font-inter font-medium flex px-2 py-2 gap-10 items-center sm:px-3 sm:py-4 sm:flex-col lg:items-start sm:h-full lg:w-[16rem]">
       <div className="hidden px-3 sm:block">
         <TwitifyLogoIcon />
       </div>
@@ -69,7 +97,7 @@ function SideNavBar() {
       </button>
 
       <div
-        className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentBlack2 dark:hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer"
+        className="hidden lg:flex gap-4 px-3 py-3 rounded-full hover:bg-transparentBlack2 dark:hover:bg-transparentWhite lg:w-full lg:mt-auto cursor-pointer items-center"
         onClick={() => navigate(`/profile/${user.username}`)}
       >
         <ProfileImage
@@ -77,9 +105,55 @@ function SideNavBar() {
           userFirstName={user.firstName}
         />
 
-        <div>
+        <div className="text-sm">
           <p>{`${user.firstName} ${user.lastName}`}</p>
           <p className="text-xs text-darkerGray dark:text-darkGray">{`@${user.username}`}</p>
+        </div>
+
+        <div className="relative">
+          <button
+            className="relative p-1 rounded-full hover:bg-transparentBlack2 dark:hover:bg-transparentWhite"
+            onClick={handleThemeBtnClick}
+            ref={sortThemeRef}
+          >
+            <EllipsesMenuSmallIcon />
+          </button>
+
+          {isThemeMenuOpen && (
+            <div className="bg-white dark:bg-black absolute right-0 -top-32 w-32 border border-solid border-darkGray dark:border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
+              <div
+                className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
+                  systemPreferenceSelected ? "text-aqua" : ""
+                }`}
+                data-value="system"
+                onClick={handleThemeSelectionClick}
+              >
+                System Preferences
+              </div>
+              <div
+                className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
+                  themeMode === "light" && !systemPreferenceSelected
+                    ? "text-aqua"
+                    : ""
+                }`}
+                data-value="light"
+                onClick={handleThemeSelectionClick}
+              >
+                Light Mode
+              </div>
+              <div
+                className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
+                  themeMode === "dark" && !systemPreferenceSelected
+                    ? "text-aqua"
+                    : ""
+                }`}
+                data-value="dark"
+                onClick={handleThemeSelectionClick}
+              >
+                Dark Mode
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
