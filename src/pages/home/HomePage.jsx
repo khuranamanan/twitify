@@ -82,20 +82,20 @@ function HomePage() {
 
   return (
     <div className="mb-[64px] sm:mb-4">
-      <div className="sm:hidden bg-black px-4 pt-4 pb-5 flex justify-center border-b border-solid border-darkerGray h-fit">
+      <div className="sm:hidden bg-white dark:bg-black px-4 pt-4 pb-5 flex justify-center border-b border-solid border-darkGray dark:border-darkerGray h-fit">
         <TwitifyLogoIconSmall />
       </div>
-      <div className="bg-black font-inter hidden sm:block px-4 py-3 border-b border-solid border-darkerGray text-xl font-bold">
+      <div className="bg-white dark:bg-black font-inter hidden sm:block px-4 py-3 border-b border-solid border-darkGray dark:border-darkerGray text-xl font-bold">
         <h1>Home</h1>
       </div>
       <CreateEditPost />
 
       {/* Sort Bar */}
-      <div className="bg-black relative flex items-center justify-between font-inter px-4 py-3 border-b border-solid border-darkerGray text-lg font-bold">
+      <div className="bg-white dark:bg-black relative flex items-center justify-between font-inter px-4 py-3 border-b border-solid border-darkGray dark:border-darkerGray text-lg font-bold">
         <h2>{sortType}</h2>
 
         <button
-          className="relative p-2 rounded-full hover:text-aqua hover:bg-transparentWhite"
+          className="relative p-2 rounded-full  hover:bg-transparentBlack2 dark:hover:bg-transparentWhite"
           onClick={handleSortBtnClick}
           ref={sortMenuRef}
         >
@@ -103,9 +103,9 @@ function HomePage() {
         </button>
 
         {isSortMenuOpen && (
-          <div className="bg-black absolute right-16 top-6 w-32 border border-solid border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
+          <div className="bg-white dark:bg-black absolute right-16 top-6 w-32 border border-solid border-darkGray dark:border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
             <div
-              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite ${
+              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
                 sortType === SORT_TYPES.TRENDING ? "text-aqua" : ""
               }`}
               data-value={SORT_TYPES.TRENDING}
@@ -114,7 +114,7 @@ function HomePage() {
               <TrendingIcon /> Trending
             </div>
             <div
-              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite ${
+              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
                 sortType === SORT_TYPES.LATEST ? "text-aqua" : ""
               }`}
               data-value={SORT_TYPES.LATEST}
@@ -123,7 +123,7 @@ function HomePage() {
               <ChevronUpIcon /> Latest
             </div>
             <div
-              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentWhite ${
+              className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
                 sortType === SORT_TYPES.OLDEST ? "text-aqua" : ""
               }`}
               data-value={SORT_TYPES.OLDEST}

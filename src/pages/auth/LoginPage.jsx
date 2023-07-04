@@ -57,7 +57,7 @@ function LoginPage() {
 
   return (
     <div className="min-h-[100dvh] w-full flex justify-center items-center p-3 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-blue-100 via-blue-200 to-cyan">
-      <div className="bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md border-2 border-solid border-darkerGray">
+      <div className="bg-white dark:bg-black flex flex-col gap-8 py-6 px-10 rounded-xl h-[90%] w-full max-w-md">
         <div className="px-3 flex justify-center">
           <TwitifyFullLogo />
         </div>
@@ -65,12 +65,12 @@ function LoginPage() {
           className="w-full flex flex-col justify-around gap-4 items-center grow"
           onSubmit={handleLogInFormSubmit}
         >
-          <h1 className="text-white text-3xl font-inter font-bold uppercase">
+          <h1 className="dark:text-white text-3xl font-inter font-bold uppercase">
             Log In
           </h1>
           <div className="flex flex-col gap-4 w-full mb-1">
             <input
-              className="w-full rounded-md p-2 text-black"
+              className="w-full rounded-md p-2 text-black border border-darkGray"
               type="text"
               placeholder="Username"
               value={logInFormData.username}
@@ -83,7 +83,7 @@ function LoginPage() {
             />
             <div className="flex shrink justify-between gap-2 items-center w-full">
               <input
-                className="rounded-md w-full p-2 text-black"
+                className="rounded-md w-full p-2 text-black border border-darkGray"
                 type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 onChange={(e) =>
@@ -95,7 +95,7 @@ function LoginPage() {
                 value={logInFormData.password}
               />
               <div
-                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer"
+                className="h-full p-2 shrink aspect-square bg-snow text-black flex justify-center items-center rounded-md cursor-pointer border border-darkGray"
                 onClick={handleShowPasswordBtnClick}
               >
                 {showPasswordIcon}
@@ -104,13 +104,13 @@ function LoginPage() {
           </div>
           <div className="flex flex-col gap-4 w-full">
             <button
-              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold hover:bg-white"
+              className="bg-black dark:bg-snow text-md uppercase p-2 w-full rounded-full text-snow dark:text-black font-semibold hover:bg-transparentBlack dark:hover:bg-white"
               type="submit"
             >
               Log In
             </button>
             <button
-              className="bg-snow text-md uppercase p-2 w-full rounded-full text-black font-semibold hover:bg-white"
+              className="bg-black dark:bg-snow text-md uppercase p-2 w-full rounded-full text-snow dark:text-black font-semibold hover:bg-transparentBlack dark:hover:bg-white"
               type="submit"
               onClick={() =>
                 setLogInFormData({

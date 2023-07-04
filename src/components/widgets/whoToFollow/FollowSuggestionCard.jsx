@@ -25,11 +25,11 @@ function FollowSuggestionCard({ twitifyUser }) {
 
       <div className="grow">
         <p className="font-semibold overflow-ellipsis">{`${twitifyUser.firstName} ${twitifyUser.lastName}`}</p>
-        <p className="text-xs text-darkGray">{`@${twitifyUser.username}`}</p>
+        <p className="text-xs text-darkerGray dark:text-darkGray">{`@${twitifyUser.username}`}</p>
       </div>
 
       <button
-        className="bg-snow font-semibold rounded-full px-4 py-1 text-black hover:opacity-90"
+        className="bg-black dark:bg-snow font-semibold rounded-full px-4 py-1 text-snow dark:text-black hover:opacity-90"
         onClick={handleFollowBtnClick}
       >
         Follow

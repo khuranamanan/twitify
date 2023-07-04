@@ -8,7 +8,7 @@ function EditProfileModal({ onClose }) {
       onClick={() => onClose()}
     >
       <div
-        className="bg-black border-2 border-solid border-darkerGray rounded-xl overflow-hidden w-[80%] sm:w-[50%] lg:w-[35rem]"
+        className="bg-white dark:bg-black border-2 border-solid border-darkGray dark:border-darkerGray rounded-xl overflow-hidden w-[80%] sm:w-[50%] lg:w-[35rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <EditProfileForm onClose={onClose} />

@@ -1,5 +1,6 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   theme: {
     colors: {
       ...require("tailwindcss/colors"),
@@ -17,6 +18,7 @@ module.exports = {
       transparentWhite: "hsla(0,0%,100%,0.1)",
       transparentWhite2: "hsla(0,0%,100%,0.15)",
       transparentBlack: "hsla(0,0%,0%, 0.8)",
+      transparentBlack2: "hsla(0,0%,0%, 0.1)",
     },
     fontFamily: {
       inter: ["Inter", "sans-serif"],
