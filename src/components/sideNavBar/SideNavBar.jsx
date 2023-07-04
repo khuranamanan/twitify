@@ -120,7 +120,10 @@ function SideNavBar() {
           </button>
 
           {isThemeMenuOpen && (
-            <div className="bg-white dark:bg-black absolute right-0 -top-32 w-32 border border-solid border-darkGray dark:border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
+            <div className="bg-white dark:bg-black absolute -right-[100%] -top-48 w-32 border border-solid border-darkGray dark:border-darkerGray z-10 rounded-lg overflow-hidden text-sm">
+              <p className="py-2 px-3 text-xs text-darkerGray dark:text-darkGray">
+                Theme Preferences
+              </p>
               <div
                 className={`py-2 px-3 flex items-center gap-1 cursor-pointer hover:bg-transparentBlack2 dark:hover:bg-transparentWhite ${
                   systemPreferenceSelected ? "text-aqua" : ""
