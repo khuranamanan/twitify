@@ -28,7 +28,7 @@ export const users = [
     profileImg:
       "https://res.cloudinary.com/dsuxc3pwu/image/upload/f_auto,q_auto/vros3skvusjvip5t33ej",
     profileBio: "I'm Manan Khurana, a tech enthusiast and lifelong learner.",
-    profileURL: "https://example.com/manankhurana",
+    profileURL: "https://manankhurana.netlify.app/",
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },

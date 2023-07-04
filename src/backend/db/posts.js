@@ -40,6 +40,10 @@ export const posts = [
       likedBy: [],
       dislikedBy: [],
     },
+    media: {
+      url: "https://res.cloudinary.com/dsuxc3pwu/image/upload/f_auto,q_auto/rl4gxq3m8cbl8c79yj9o",
+      type: "image",
+    },
     username: "manankhurana",
     createdAt: "2023-05-01T22:30:00+05:30",
     updatedAt: formatDate(),
