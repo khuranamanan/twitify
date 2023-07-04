@@ -70,6 +70,13 @@ function ProfilePage() {
     }
   }
 
+  if (
+    profilePageUserStatus === "rejected" ||
+    profilePageUserPostsStatus === "rejected"
+  ) {
+    throw new Error("An error occurred while fetching user data");
+  }
+
   return (
     <div className="mb-[64px] sm:mb-4">
       {/* Top Column Heading */}
@@ -115,14 +122,6 @@ function ProfilePage() {
             isUserFollowingThisUser={isUserFollowingThisUser}
           />
         </div>
-      )}
-
-      {/* In case of Error */}
-      {(profilePageUserStatus === "rejected" ||
-        profilePageUserPostsStatus === "rejected") && (
-        <p className="text-center p-4 font-semibold">
-          Failed to Load. Try Again.
-        </p>
       )}
 
       {/* User Posts */}

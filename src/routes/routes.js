@@ -12,6 +12,8 @@ import MockmanPage from "../pages/MockmanPage";
 import LoginPage from "../pages/auth/LoginPage";
 import PrivateRoute from "../components/PrivateRoute";
 import SignUpPage from "../pages/auth/SignUpPage";
+import PageNotFound from "../pages/PageNotFound";
+import ProfileError from "../pages/profile/components/ProfileError";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
@@ -30,8 +32,13 @@ const routes = createBrowserRouter(
         <Route index element={<HomePage />} />
         <Route path="explore" element={<ExplorePage />} />
         <Route path="bookmarks" element={<BookmarksPage />} />
-        <Route path="profile/:username" element={<ProfilePage />} />
+        <Route
+          path="profile/:username"
+          element={<ProfilePage />}
+          errorElement={<ProfileError />}
+        />
       </Route>
+      <Route path="*" element={<PageNotFound />} />
     </>
   )
 );
