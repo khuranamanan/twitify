@@ -53,7 +53,7 @@ function SearchWidget() {
       </div>
       {searchTerm.length > 0 && (
         <div
-          className="absolute top-full left-0 cursor-pointer right-0 bg-white dark:bg-black rounded-2xl shadow-md pb-1 overflow-hidden max-h-56 overflow-y-scroll no-scrollbar"
+          className="absolute top-full left-0 cursor-pointer right-0 bg-white dark:bg-black rounded-2xl shadow-md pb-1 overflow-hidden max-h-56 overflow-y-scroll no-scrollbar z-10 border border-darkGray dark:border-darkerGray"
           ref={searchResultRef}
         >
           {filteredUsers.length > 0 ? (
