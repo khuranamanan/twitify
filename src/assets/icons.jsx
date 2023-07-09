@@ -1,6 +1,6 @@
 export function TwitifyLogoIcon() {
   return (
-    <div className="w-12 h-12">
+    <div className="w-10 h-10">
       <svg viewBox="0 0 93.23048623885052 102.09287408610123">
         <g
           transform="translate(-11.159267190136699, -8.096005343615637) scale(1.159886149210969)"
