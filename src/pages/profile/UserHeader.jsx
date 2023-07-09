@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { followAUser, unfollowAUser } from "../../redux/slices/allUsersSlice";
 import { useState } from "react";
 import EditProfileModal from "./components/EditProfileModal";
+import { debounce } from "../../utils/debounce";
 
 function UserHeader({
   profilePageUser,
@@ -15,15 +16,15 @@ function UserHeader({
   const { token } = useSelector((state) => state.auth);
   const [editProfileModal, setEditProfileModal] = useState(false);
 
-  function handleFollow() {
+  const handleFollow = debounce(() => {
     dispatch(followAUser({ followUserID: profilePageUser._id, token: token }));
-  }
+  }, 300);
 
-  function handleUnfollow() {
+  const handleUnfollow = debounce(() => {
     dispatch(
       unfollowAUser({ followUserID: profilePageUser._id, token: token })
     );
-  }
+  }, 300);
 
   function handleEditProfileBtnClick() {
     setEditProfileModal(true);

@@ -2,16 +2,18 @@ import { useNavigate } from "react-router";
 import ProfileImage from "../../ProfileImage";
 import { useDispatch, useSelector } from "react-redux";
 import { followAUser } from "../../../redux/slices/allUsersSlice";
+import { debounce } from "../../../utils/debounce";
 
 function FollowSuggestionCard({ twitifyUser }) {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleFollowBtnClick(event) {
-    event.stopPropagation();
+  function handleFollowBtnClick() {
     dispatch(followAUser({ followUserID: twitifyUser._id, token: token }));
   }
+
+  const debouncedFollowAction = debounce(handleFollowBtnClick, 300);
 
   return (
     <div
@@ -30,7 +32,10 @@ function FollowSuggestionCard({ twitifyUser }) {
 
       <button
         className="bg-black dark:bg-snow font-semibold rounded-full px-4 py-1 text-snow dark:text-black hover:opacity-90"
-        onClick={handleFollowBtnClick}
+        onClick={(event) => {
+          event.stopPropagation();
+          debouncedFollowAction();
+        }}
       >
         Follow
       </button>

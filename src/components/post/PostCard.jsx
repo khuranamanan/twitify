@@ -22,6 +22,7 @@ import { useRef } from "react";
 import useClickOutside from "../../hooks/useClickOutside";
 import { bookmarkPost, removeBookmarkPost } from "../../redux/slices/authSlice";
 import { useNavigate } from "react-router";
+import { debounce } from "../../utils/debounce";
 
 const PostCard = forwardRef(({ postData }, ref) => {
   const { allUsers } = useSelector((state) => state.allUsers);
@@ -64,21 +65,21 @@ const PostCard = forwardRef(({ postData }, ref) => {
     dispatch(deleteUserPost({ postID: postData._id, token }));
   }
 
-  function handlePostLikeBtnClick() {
+  const handlePostLikeBtnClick = debounce(() => {
     dispatch(likePost({ postID: postData._id, token }));
-  }
+  }, 300);
 
-  function handlePostDislikeBtnClick() {
+  const handlePostDislikeBtnClick = debounce(() => {
     dispatch(unlikePost({ postID: postData._id, token }));
-  }
+  }, 300);
 
-  function handleBookmarkPostBtnClick() {
+  const handleBookmarkPostBtnClick = debounce(() => {
     dispatch(bookmarkPost({ postID: postData._id, token }));
-  }
+  }, 300);
 
-  function handleRemoveBookmarkPostBtnClick() {
+  const handleRemoveBookmarkPostBtnClick = debounce(() => {
     dispatch(removeBookmarkPost({ postID: postData._id, token }));
-  }
+  }, 300);
 
   const postLikeUnlikeButton = (
     <button
